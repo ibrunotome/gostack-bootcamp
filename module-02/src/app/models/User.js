@@ -1,4 +1,5 @@
-import Sequelize, { Model } from 'sequelize'
+import Sequelize from 'sequelize'
+import Model from './Model'
 
 class User extends Model {
   static init(sequelize) {
@@ -15,3 +16,5 @@ class User extends Model {
     )
   }
 }
+
+export default User
