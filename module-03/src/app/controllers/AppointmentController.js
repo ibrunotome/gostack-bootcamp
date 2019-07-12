@@ -116,7 +116,7 @@ class AppointmentController {
       return res.status(403).json({ error: 'Forbidden' })
     }
 
-    if (appointment.canceled_at === null) {
+    if (appointment.canceled_at !== null) {
       return res.status(400).json({ error: 'The appointment is already canceled' })
     }
 
