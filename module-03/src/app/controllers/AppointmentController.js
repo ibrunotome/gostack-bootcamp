@@ -46,12 +46,16 @@ class AppointmentController {
 
     const { provider_id, date } = req.body
 
+    if (req.userId === provider_id) {
+      return res.status(400).json({ error: 'You cannot make a appointment with your self!' })
+    }
+
     const isProvider = await User.findOne({
       where: { id: provider_id, provider: true },
     })
 
     if (!isProvider) {
-      return res.status(401).json({ error: 'You can only create appointments with providers' })
+      return res.status(400).json({ error: 'You can only create appointments with providers' })
     }
 
     const hourStart = startOfHour(parseISO(date))
