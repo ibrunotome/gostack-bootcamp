@@ -5,7 +5,9 @@ import Appointment from '../models/Appointment'
 import User from '../models/User'
 import File from '../models/File'
 import Notification from '../schemas/Notification'
-import Mail from '../../lib/mail'
+
+import CancellationMail from '../jobs/CancellationMail'
+import Queue from '../../lib/Queue'
 
 class AppointmentController {
   async index(req, res) {
@@ -114,6 +116,10 @@ class AppointmentController {
       return res.status(403).json({ error: 'Forbidden' })
     }
 
+    if (appointment.canceled_at === null) {
+      return res.status(400).json({ error: 'The appointment is already canceled' })
+    }
+
     const dateWithSub = subHours(appointment.date, 2)
 
     if (isBefore(dateWithSub, new Date())) {
@@ -126,15 +132,8 @@ class AppointmentController {
 
     await appointment.save()
 
-    await Mail.sendMail({
-      to: `${appointment.provider.name} <${appointment.provider.email}>`,
-      subject: 'Agendamento cancelado',
-      template: 'cancellation',
-      context: {
-        provider: appointment.provider.name,
-        user: appointment.user.name,
-        date: format(appointment.date, "dd 'de' MMMM', às' H:mm'h", { locale: ptBR }),
-      },
+    await Queue.add(CancellationMail.key, {
+      appointment,
     })
 
     return res.json(appointment)
