@@ -2,4 +2,3 @@ node_modules
 yarn-error.log
 tmp/
 .env
-mail.js
