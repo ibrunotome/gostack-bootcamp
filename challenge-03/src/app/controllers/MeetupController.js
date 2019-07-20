@@ -94,6 +94,10 @@ class MeetupController {
     const user_id = req.userId
     const meetup = await Meetup.findByPk(req.params.id)
 
+    if (!meetup) {
+      return res.status(404).json({ error: 'Meetup not found' })
+    }
+
     if (meetup.user_id !== user_id) {
       return res.status(403).json({ error: 'Forbidden' })
     }
