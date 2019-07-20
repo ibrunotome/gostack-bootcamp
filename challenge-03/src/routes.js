@@ -19,6 +19,7 @@ routes.use(authMiddleware)
 routes.put('/users', UserController.update)
 routes.post('/files', upload.single('file'), FileController.store)
 
+routes.get('/meetups/organizing', MeetupController.organizingMeetups)
 routes.get('/meetups', MeetupController.index)
 routes.post('/meetups', MeetupController.store)
 routes.put('/meetups/:id', MeetupController.update)

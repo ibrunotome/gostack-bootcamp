@@ -5,29 +5,20 @@ import Meetup from '../models/Meetup'
 import User from '../models/User'
 
 class MeetupController {
-  async index(req, res) {
+  constructor() {}
+
+  async organizingMeetups(req, res) {
     const where = {
       user_id: req.userId,
     }
 
-    const page = req.query.page || 1
+    return await meetupList(req, res, where)
+  }
 
-    if (req.query.date) {
-      const searchDate = parseISO(req.query.date)
+  async index(req, res) {
+    const where = {}
 
-      where.date = {
-        [Op.between]: [startOfDay(searchDate), endOfDay(searchDate)],
-      }
-    }
-
-    const meetups = await Meetup.findAll({
-      where,
-      include: [User],
-      limit: 10,
-      offset: 10 * page - 10,
-    })
-
-    return res.json(meetups)
+    return await meetupList(req, res, where)
   }
 
   async store(req, res) {
@@ -115,6 +106,27 @@ class MeetupController {
 
     return res.status(204).send()
   }
+}
+
+async function meetupList(req, res, where) {
+  const page = req.query.page || 1
+
+  if (req.query.date) {
+    const searchDate = parseISO(req.query.date)
+
+    where.date = {
+      [Op.between]: [startOfDay(searchDate), endOfDay(searchDate)],
+    }
+  }
+
+  const meetups = await Meetup.findAll({
+    where,
+    include: [User],
+    limit: 10,
+    offset: 10 * page - 10,
+  })
+
+  return res.json(meetups)
 }
 
 export default new MeetupController()
