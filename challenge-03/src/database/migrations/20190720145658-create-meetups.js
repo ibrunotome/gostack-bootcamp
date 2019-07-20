@@ -18,7 +18,7 @@ module.exports = {
       },
       location: {
         type: Sequelize.STRING,
-        allowNull,
+        allowNull: false,
       },
       date: {
         type: Sequelize.DATE,
