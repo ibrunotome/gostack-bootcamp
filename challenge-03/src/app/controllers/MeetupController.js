@@ -98,6 +98,23 @@ class MeetupController {
 
     return res.json(meetup)
   }
+
+  async delete(req, res) {
+    const user_id = req.userId
+    const meetup = await Meetup.findByPk(req.params.id)
+
+    if (meetup.user_id !== user_id) {
+      return res.status(403).json({ error: 'Forbidden' })
+    }
+
+    if (meetup.past) {
+      return res.status(400).json({ error: 'You cannot delete past meetups' })
+    }
+
+    await meetup.destroy()
+
+    return res.status(204).send()
+  }
 }
 
 export default new MeetupController()
