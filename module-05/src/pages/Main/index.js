@@ -3,7 +3,8 @@ import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import api from '../../services/api'
 
-import { Container, Form, List, SubmitButton } from './styles'
+import Container from '../../components/Container'
+import { Form, List, SubmitButton } from './styles'
 
 // import { Container } from './styles';
 
