@@ -11,6 +11,7 @@ export const Header = styled.View`
   border-bottom-width: 1px;
   border-color: #eee;
 `
+
 export const Avatar = styled.Image`
   width: 100px;
   height: 100px;
@@ -33,11 +34,13 @@ export const Bio = styled.Text`
   margin-top: 5px;
   text-align: center;
 `
+
 export const Stars = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
 })`
   margin-top: 20px;
 `
+
 export const Starred = styled.View`
   background: #f5f5f5;
   border-radius: 4px;
@@ -46,16 +49,19 @@ export const Starred = styled.View`
   flex-direction: row;
   align-items: center;
 `
+
 export const OwnerAvatar = styled.Image`
   height: 42px;
   width: 42px;
   border-radius: 21px;
   background: #eee;
 `
+
 export const Info = styled.View`
   margin-left: 10px;
   flex: 1;
 `
+
 export const Title = styled.Text.attrs({
   numberOfLines: 1,
 })`
@@ -63,6 +69,7 @@ export const Title = styled.Text.attrs({
   font-weight: bold;
   color: #333;
 `
+
 export const Author = styled.Text`
   font-size: 13px;
   color: #666;
