@@ -116,3 +116,21 @@ export const IssueStatusFilter = styled.div`
     }
   }
 `
+
+export const Pagination = styled.div`
+  padding-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+
+  button {
+    border-radius: 4px;
+    outline: 0;
+    border: 0;
+    padding: 8px;
+    &:disabled {
+      color: #fff;
+    }
+  }
+`

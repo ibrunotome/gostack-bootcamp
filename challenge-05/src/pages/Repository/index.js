@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import api from '../../services/api'
 
 import Container from '../../components/Container'
-import { Loading, Owner, IssueList, IssueStatusFilter } from './styles'
+import { Loading, Owner, IssueList, IssueStatusFilter, Pagination } from './styles'
 
 export default class Repository extends Component {
   static propTypes = {
@@ -25,6 +25,7 @@ export default class Repository extends Component {
       { state: 'closed', label: 'Fechadas', active: false },
     ],
     filterChoosed: 0,
+    page: 1,
   }
 
   async componentDidMount() {
@@ -60,6 +61,7 @@ export default class Repository extends Component {
       params: {
         state: filters[filterChoosed].state,
         per_page: 5,
+        page,
       },
     })
 
@@ -71,8 +73,16 @@ export default class Repository extends Component {
     this.loadIssues()
   }
 
+  handlePage = async action => {
+    const { page } = this.state
+
+    await this.setState({ page: action === 'back' ? page - 1 : page + 1 })
+
+    this.loadIssues()
+  }
+
   render() {
-    const { repository, issues, filters, filterChoosed, loading } = this.state
+    const { repository, issues, filters, filterChoosed, loading, page } = this.state
 
     if (loading) {
       return <Loading>Carregando</Loading>
@@ -112,6 +122,16 @@ export default class Repository extends Component {
             </li>
           ))}
         </IssueList>
+
+        <Pagination>
+          <button type="button" disabled={page < 2} onClick={() => this.handlePage('back')}>
+            Anterior
+          </button>
+          <span>Página {page}</span>
+          <button type="button" onClick={() => this.handlePage('next')}>
+            Próximo
+          </button>
+        </Pagination>
       </Container>
     )
   }
