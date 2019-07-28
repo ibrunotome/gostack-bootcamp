@@ -6,11 +6,11 @@ function Header() {
       <nav>
         <img
           id="logo"
-          src="http://www.sclance.com/pngs/facebook-logo-white-png/facebook_logo_white_png_466671.png"
+          src="https://rocketseat.com.br/static/images/gostack/logo-rocketseat.svg"
         />
         <div>
           <span>Meu perfil</span>
-          <img src="https://i.kisscc0.com/20180815/vcq/kisscc0-facebook-computer-icons-user-profile-silhouette-bl-ninja-fb-profile-5b744db18bd8d9.9421314415343487215728.png" />
+          <img src="https://avatars0.githubusercontent.com/u/4256471?s=460&v=4" />
         </div>
       </nav>
     </header>
