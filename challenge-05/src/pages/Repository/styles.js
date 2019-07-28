@@ -99,3 +99,20 @@ export const IssueList = styled.ul`
     }
   }
 `
+export const IssueStatusFilter = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-bottom: 15px;
+
+  button {
+    border-radius: 4px;
+    outline: 0;
+    border: 0;
+    padding: 8px;
+    margin: -10px 0 0 0;
+    &:nth-child(${props => props.active + 1}) {
+      background: #7159ca;
+      color: white;
+    }
+  }
+`
