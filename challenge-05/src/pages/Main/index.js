@@ -42,6 +42,10 @@ export default class Main extends Component {
     const { newRepo, repositories } = this.state
 
     try {
+      if (repositories.find(repo => repo.name === newRepo)) {
+        throw new Error('This repo is already aded')
+      }
+
       const response = await api.get(`/repos/${newRepo}`)
 
       const data = {
