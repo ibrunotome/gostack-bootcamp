@@ -23,7 +23,8 @@ module.exports = {
     'react/jsx-uses-vars': 1,
     'react/jsx-filename-extension': ['warn', { extensions: ['.jsx', '.js'] }],
     'import/prefer-default-export': 'off',
-    'no-console': ['error', {allow: ['tron']}]
+    'no-console': ['error', { allow: ['tron'] }],
+    'no-param-reassign': 'off',
     'no-unused-vars': ['error', { argsIgnorePattern: 'next' }],
   },
 }
