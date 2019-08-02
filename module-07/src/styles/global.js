@@ -14,7 +14,7 @@ export default createGlobalStyle`
   }
 
   body {
-    background: #202020 url(${background}) no-repeat center top;
+    background: #fff url(${background}) no-repeat center top;
     -webkit-font-smoothing: antialised;
   }
 

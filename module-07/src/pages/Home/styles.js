@@ -13,6 +13,7 @@ export const ProductList = styled.ul`
     background: #fff;
     border-radius: 4px;
     padding: 20px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
 
     img {
       align-self: center;
