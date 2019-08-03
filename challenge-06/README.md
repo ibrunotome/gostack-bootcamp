@@ -57,7 +57,7 @@ Exemplo de código:
 
 Resultado:
 
-![WebView](assets-desafio/exemplo-web-view.png)
+<img width="300px" src="https://raw.githubusercontent.com/Rocketseat/bootcamp-gostack-desafio-06/master/assets-desafio/exemplo-web-view.png">
 
 ## Entrega
 

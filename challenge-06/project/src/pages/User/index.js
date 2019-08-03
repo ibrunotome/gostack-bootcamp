@@ -32,13 +32,32 @@ export default class User extends Component {
     loading: true,
   }
 
-  async componentDidMount() {
+  load = async (page = 1) => {
+    const { stars } = this.state
     const { navigation } = this.props
     const user = navigation.getParam('user')
 
-    const response = await api.get(`/users/${user.login}/starred`)
+    const response = await api.get(`/users/${user.login}/starred`, {
+      params: { page },
+    })
 
-    this.setState({ stars: response.data, loading: false })
+    this.setState({
+      stars: page > 1 ? [...stars, ...response.data] : response.data,
+      page,
+      loading: false,
+    })
+  }
+
+  loadMore = () => {
+    const { page } = this.state
+
+    const nextPage = page + 1
+
+    this.load(nextPage)
+  }
+
+  async componentDidMount() {
+    this.load()
   }
 
   render() {
@@ -59,6 +78,8 @@ export default class User extends Component {
         ) : (
           <Stars
             data={stars}
+            onEndReachedThreshold={0.2}
+            onEndReached={this.loadMore}
             keyExtractor={star => String(star.id)}
             renderItem={({ item }) => (
               <Starred>
