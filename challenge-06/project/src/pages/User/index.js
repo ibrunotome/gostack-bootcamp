@@ -24,11 +24,13 @@ export default class User extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       getParam: PropTypes.func,
+      navigate: PropTypes.func,
     }).isRequired,
   }
 
   state = {
     stars: [],
+    page: 1,
     loading: true,
     refreshing: false,
   }
@@ -62,6 +64,13 @@ export default class User extends Component {
     this.setState({ refreshing: true, stars: [] }, this.load)
   }
 
+  handleNavigate = repository => {
+    console.tron.log(repository)
+    const { navigation } = this.props
+
+    navigation.navigate('Repository', { repository })
+  }
+
   async componentDidMount() {
     this.load()
   }
@@ -90,7 +99,7 @@ export default class User extends Component {
             refreshing={refreshing}
             keyExtractor={star => String(star.id)}
             renderItem={({ item }) => (
-              <Starred>
+              <Starred onPress={() => this.handleNavigate(item)}>
                 <OwnerAvatar source={{ uri: item.owner.avatar_url }} />
                 <Info>
                   <Title>{item.name}</Title>
