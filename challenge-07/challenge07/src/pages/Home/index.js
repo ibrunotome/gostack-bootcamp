@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Text } from 'react-native'
 
-export default class Main extends Component {
+export default class Home extends Component {
   render() {
-    return <Text>Main Page</Text>
+    return <Text>Home</Text>
   }
 }
