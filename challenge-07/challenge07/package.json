@@ -5,7 +5,8 @@
   "scripts": {
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix src/"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.6.1",
