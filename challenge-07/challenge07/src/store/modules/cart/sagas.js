@@ -14,7 +14,7 @@ function* addToCart({ id }) {
   const amount = currentAmount + 1
 
   if (amount > stockAmount) {
-    Alert.alert('Out of stock!')
+    Alert.alert('Sem estoque!')
     return
   }
 
@@ -44,7 +44,7 @@ function* updateAmount({ id, amount }) {
   const stockAmount = stock.data.amount
 
   if (amount > stockAmount) {
-    Alert.alert('Out of stock!')
+    Alert.alert('Sem estoque!')
     return
   }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { createAppContainer, createStackNavigator } from 'react-navigation'
+import { flipY } from 'react-navigation-transitions'
 
 import Home from './pages/Home'
 import Cart from './pages/Cart'
@@ -13,6 +14,7 @@ const Routes = createAppContainer(
     { Home, Cart },
     {
       initialRouteName: 'Home',
+      transitionConfig: () => flipY(1000),
       defaultNavigationOptions: navigation => ({
         headerStyle: {
           backgroundColor: '#141419',

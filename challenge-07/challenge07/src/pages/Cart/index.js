@@ -1,18 +1,26 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { ImageBackground } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as CartActions from '../../store/modules/cart/actions'
 import { formatPrice } from '../../util/format'
+import { EmptyContainer, EmptyText } from './styles'
+import background from '../../assets/background-reversed.png'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-import background from '../../assets/background.png'
 Icon.loadFont()
 
-class Cart extends Component {
-  render() {
-    return <ImageBackground source={background} style={{ width: '100%' }}></ImageBackground>
-  }
+function Cart({ navigation, products }) {
+  return (
+    <ImageBackground source={background} style={{ width: '100%' }}>
+      {products.length === 0 && (
+        <EmptyContainer>
+          <Icon name="remove-shopping-cart" size={64} color="#eee" />
+          <EmptyText>Seu carrinho está vazio.</EmptyText>
+        </EmptyContainer>
+      )}
+    </ImageBackground>
+  )
 }
 
 const mapStateToProps = state => ({
