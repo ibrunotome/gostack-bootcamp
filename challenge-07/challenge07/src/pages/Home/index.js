@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { FlatList, ImageBackground } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
-
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as CartActions from '../../store/modules/cart/actions'
@@ -21,6 +19,7 @@ import {
 
 import api from '../../services/api'
 import { formatPrice } from '../../util/format'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 Icon.loadFont()
 

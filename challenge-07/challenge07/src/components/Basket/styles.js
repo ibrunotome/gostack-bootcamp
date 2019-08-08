@@ -3,10 +3,7 @@ import styled from 'styled-components/native'
 import logo from '../../assets/logo.png'
 
 export const Container = styled.View`
-  flex-direction: row;
-  flex: 1;
-  justify-content: space-between;
-  padding: 20px;
+  margin: 0 auto;
 `
 
 export const Logo = styled.Image.attrs({
@@ -20,10 +17,9 @@ export const Logo = styled.Image.attrs({
 export const BasketContainer = styled.TouchableOpacity`
   height: 24px;
   width: 24px;
-  flex: 1;
-  align-items: flex-end;
-  justify-content: flex-end;
+  margin-right: 20px;
 `
+
 export const ItemCount = styled.Text`
   position: absolute;
   text-align: center;
