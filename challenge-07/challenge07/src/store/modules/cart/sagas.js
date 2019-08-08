@@ -3,6 +3,7 @@ import { Alert } from 'react-native'
 import api from '../../../services/api'
 import { formatPrice } from '../../../util/format'
 import { addToCartSuccess, updateAmountSuccess } from './actions'
+import Navigation from '../../../navigation'
 
 function* addToCart({ id }) {
   const productExists = yield select(state => state.cart.find(p => p.id === id))
@@ -19,6 +20,8 @@ function* addToCart({ id }) {
 
   if (productExists) {
     yield put(updateAmountSuccess(id, amount))
+
+    Navigation.navigate('Cart')
   } else {
     const response = yield call(api.get, `/products/${id}`)
 
@@ -29,6 +32,8 @@ function* addToCart({ id }) {
     }
 
     yield put(addToCartSuccess(data))
+
+    Navigation.navigate('Cart')
   }
 }
 
