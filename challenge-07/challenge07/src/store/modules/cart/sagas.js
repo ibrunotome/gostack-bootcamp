@@ -2,7 +2,7 @@ import { call, select, put, all, takeLatest } from 'redux-saga/effects'
 import { Alert } from 'react-native'
 import api from '../../../services/api'
 import { formatPrice } from '../../../util/format'
-import { addToCartSuccess, updateAmountSuccess } from './actions'
+import { addToCartSuccess, updateAmountSuccess, removeFromCart } from './actions'
 import Navigation from '../../../navigation'
 
 function* addToCart({ id }) {
@@ -38,7 +38,9 @@ function* addToCart({ id }) {
 }
 
 function* updateAmount({ id, amount }) {
-  if (amount <= 0) return
+  if (amount <= 0) {
+    yield put(removeFromCart(id))
+  }
 
   const stock = yield call(api.get, `/stock/${id}`)
   const stockAmount = stock.data.amount
@@ -52,6 +54,7 @@ function* updateAmount({ id, amount }) {
 }
 
 export default all([
+  takeLatest('@cart/REMOVE', removeFromCart),
   takeLatest('@cart/ADD_REQUEST', addToCart),
   takeLatest('@cart/UPDATE_AMOUNT_REQUEST', updateAmount),
 ])

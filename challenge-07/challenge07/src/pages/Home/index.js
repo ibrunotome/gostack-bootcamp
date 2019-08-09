@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FlatList, ImageBackground } from 'react-native'
+import { FlatList, ImageBackground, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as CartActions from '../../store/modules/cart/actions'
@@ -73,13 +73,22 @@ class Home extends Component {
 
     return (
       <ImageBackground source={background} style={{ width: '100%' }}>
-        <FlatList
-          horizontal
-          data={products}
-          extraData={this.props}
-          keyExtractor={item => String(item.id)}
-          renderItem={this.renderProduct}
-        />
+        <ScrollView>
+          <FlatList
+            horizontal
+            data={products.filter(product => product.category === 'shoes')}
+            extraData={this.props}
+            keyExtractor={item => String(item.id)}
+            renderItem={this.renderProduct}
+          />
+          <FlatList
+            horizontal
+            data={products.filter(product => product.category === 'sandals')}
+            extraData={this.props}
+            keyExtractor={item => String(item.id)}
+            renderItem={this.renderProduct}
+          />
+        </ScrollView>
       </ImageBackground>
     )
   }

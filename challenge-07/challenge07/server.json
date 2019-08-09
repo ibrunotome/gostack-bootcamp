@@ -23,44 +23,83 @@
     {
       "id": 6,
       "amount": 10
+    },
+    {
+      "id": 7,
+      "amount": 10
+    },
+    {
+      "id": 8,
+      "amount": 10
+    },
+    {
+      "id": 9,
+      "amount": 10
     }
   ],
   "products": [
     {
       "id": 1,
       "title": "Tênis de Caminhada Leve Confortável",
+      "category": "shoes",
       "price": 179.9,
       "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg"
     },
     {
       "id": 2,
       "title": "Tênis VR Caminhada Confortável Detalhes Couro Masculino",
+      "category": "shoes",
       "price": 139.9,
       "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis2.jpg"
     },
     {
       "id": 3,
       "title": "Tênis Adidas Duramo Lite 2.0",
+      "category": "shoes",
       "price": 219.9,
       "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis3.jpg"
     },
     {
       "id": 5,
       "title": "Tênis VR Caminhada Confortável Detalhes Couro Masculino",
+      "category": "shoes",
       "price": 139.9,
       "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis2.jpg"
     },
     {
       "id": 6,
       "title": "Tênis Adidas Duramo Lite 2.0",
+      "category": "shoes",
       "price": 219.9,
       "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis3.jpg"
     },
     {
       "id": 4,
       "title": "Tênis de Caminhada Leve Confortável",
+      "category": "shoes",
       "price": 179.9,
       "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg"
+    },
+    {
+      "id": 7,
+      "title": "Sandália Nike Kawa Slide Masculina",
+      "category": "sandals",
+      "price": 84.9,
+      "image": "https://static.netshoes.com.br/produtos/sandalia-nike-kawa-slide-masculina/06/D12-5744-006/D12-5744-006_detalhe2.jpg?resize=652:*"
+    },
+    {
+      "id": 8,
+      "title": "Sandália Nike Benassi JDI Masculina - Branco e Preto",
+      "category": "sandals",
+      "price": 89.9,
+      "image": "https://static.netshoes.com.br/produtos/sandalia-nike-benassi-jdi-masculina/28/004-3880-028/004-3880-028_detalhe2.jpg?resize=652:*"
+    },
+    {
+      "id": 9,
+      "title": "Sandália Akazzo Tratorada Verniz Tiras Karol Feminina - Nude",
+      "category": "sandals",
+      "price": 82.9,
+      "image": "https://static.netshoes.com.br/produtos/sandalia-akazzo-tratorada-verniz-tiras-karol-feminina/03/BBE-0057-203/BBE-0057-203_zoom1.jpg"
     }
   ]
 }
