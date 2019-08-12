@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { FlatList, ImageBackground, ScrollView } from 'react-native'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import * as CartActions from '../../store/modules/cart/actions'
 
 import background from '../../assets/background.png'
@@ -23,41 +22,44 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 
 Icon.loadFont()
 
-class Home extends Component {
-  state = {
-    products: [],
+function Home() {
+  const [products, setProducts] = useState([])
+
+  const amount = useSelector(state =>
+    state.cart.reduce((amount, product) => {
+      amount[product.id] = product.amount
+      return amount
+    }, {}),
+  )
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    async function getProducts() {
+      const response = await api.get('/products')
+
+      const data = response.data.map(product => ({
+        ...product,
+        priceFormatted: formatPrice(product.price),
+      }))
+
+      setProducts(data)
+    }
+
+    getProducts()
+  }, [])
+
+  function handleAddProduct(id) {
+    dispatch(CartActions.addToCartRequest(id))
   }
 
-  componentDidMount() {
-    this.getProducts()
-  }
-
-  getProducts = async () => {
-    const response = await api.get('/products')
-
-    const data = response.data.map(product => ({
-      ...product,
-      priceFormatted: formatPrice(product.price),
-    }))
-
-    this.setState({ products: data })
-  }
-
-  handleAddProduct = id => {
-    const { addToCartRequest } = this.props
-
-    addToCartRequest(id)
-  }
-
-  renderProduct = ({ item }) => {
-    const { amount } = this.props
-
+  function renderProduct({ item }) {
     return (
       <Product key={item.id}>
         <ProductImage source={{ uri: item.image }} />
         <ProductTitle>{item.title}</ProductTitle>
         <ProductPrice>{formatPrice(item.price)}</ProductPrice>
-        <AddButton onPress={() => this.handleAddProduct(item.id)}>
+        <AddButton onPress={() => handleAddProduct(item.id)}>
           <ProductAmount>
             <Icon name="add-shopping-cart" color="#FFF" size={20} />
             <ProductAmountText>{amount[item.id] || 0}</ProductAmountText>
@@ -68,42 +70,26 @@ class Home extends Component {
     )
   }
 
-  render() {
-    const { products } = this.state
-
-    return (
-      <ImageBackground source={background} style={{ width: '100%' }}>
-        <ScrollView>
-          <FlatList
-            horizontal
-            data={products.filter(product => product.category === 'shoes')}
-            extraData={this.props}
-            keyExtractor={item => String(item.id)}
-            renderItem={this.renderProduct}
-          />
-          <FlatList
-            horizontal
-            data={products.filter(product => product.category === 'sandals')}
-            extraData={this.props}
-            keyExtractor={item => String(item.id)}
-            renderItem={this.renderProduct}
-          />
-        </ScrollView>
-      </ImageBackground>
-    )
-  }
+  return (
+    <ImageBackground source={background} style={{ width: '100%' }}>
+      <ScrollView>
+        <FlatList
+          horizontal
+          data={products.filter(product => product.category === 'shoes')}
+          extraData={amount}
+          keyExtractor={item => String(item.id)}
+          renderItem={renderProduct}
+        />
+        <FlatList
+          horizontal
+          data={products.filter(product => product.category === 'sandals')}
+          extraData={amount}
+          keyExtractor={item => String(item.id)}
+          renderItem={renderProduct}
+        />
+      </ScrollView>
+    </ImageBackground>
+  )
 }
 
-const mapStateToProps = state => ({
-  amount: state.cart.reduce((amount, product) => {
-    amount[product.id] = product.amount
-    return amount
-  }, {}),
-})
-
-const mapDispatchToProps = dispatch => bindActionCreators(CartActions, dispatch)
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Home)
+export default Home
