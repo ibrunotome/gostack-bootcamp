@@ -18,10 +18,10 @@ export const Container = styled.div`
       padding: 0 15px;
       color: #fff;
       margin: 0 0 10px;
-    }
 
-    &::placeholder {
-      color: rgba(255, 255, 255, 0.7);
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
     }
   }
 
@@ -35,7 +35,7 @@ export const Container = styled.div`
   hr {
     border: 0;
     height: 1px;
-    backgorund: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.2);
     margin: 10px 0 20px;
   }
 
