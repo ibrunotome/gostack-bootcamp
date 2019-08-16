@@ -7,7 +7,7 @@ export const Container = styled.SafeAreaView`
 
 export const ProvidersList = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
-  numColums: 2,
+  numColumns: 2,
 })`
   margin-top: 60px;
   padding: 0 20px;
