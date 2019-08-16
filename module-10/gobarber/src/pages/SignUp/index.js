@@ -1,6 +1,12 @@
 import React from 'react'
 import { Text } from 'react-native'
 
-export default function SignIn() {
-  return <Text>SignUp</Text>
+import Background from '~/components/Background'
+
+export default function SignUp() {
+  return (
+    <Background>
+      <Text>SignUp</Text>
+    </Background>
+  )
 }
