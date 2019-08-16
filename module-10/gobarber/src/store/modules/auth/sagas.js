@@ -22,7 +22,7 @@ export function* signIn({ payload }) {
 
     api.defaults.headers.Authorization = `Bearer ${token}`
 
-    yield delay(3000)
+    yield delay(1000)
 
     yield put(signInSuccess(token, user))
 
@@ -62,8 +62,7 @@ export function setToken({ payload }) {
 }
 
 export function signOut() {
-  Alert.success('Até mais')
-  // history.push('/')
+  Alert.alert('Até mais')
 }
 
 export default all([
