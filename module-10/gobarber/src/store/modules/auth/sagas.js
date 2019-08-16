@@ -1,5 +1,5 @@
 import { Alert } from 'react-native'
-import { takeLatest, call, put, all } from 'redux-saga/effects'
+import { takeLatest, call, put, all, delay } from 'redux-saga/effects'
 import api from '~/services/api'
 
 import { signInSuccess, signFailure } from './actions'
@@ -16,11 +16,13 @@ export function* signIn({ payload }) {
     const { token, user } = response.data
 
     if (user.provider) {
-      Alert.alert('Erro no login', ['Aplicação somente para clientes'])
+      Alert.alert('Erro no login', 'Aplicação somente para clientes, use o website para gerenciar seus agendamentos')
       return
     }
 
     api.defaults.headers.Authorization = `Bearer ${token}`
+
+    yield delay(3000)
 
     yield put(signInSuccess(token, user))
 
@@ -39,7 +41,6 @@ export function* signUp({ payload }) {
       name,
       email,
       password,
-      provider: true,
     })
 
     // history.push('/')
@@ -61,7 +62,7 @@ export function setToken({ payload }) {
 }
 
 export function signOut() {
-  toast.success('Até mais')
+  Alert.success('Até mais')
   // history.push('/')
 }
 

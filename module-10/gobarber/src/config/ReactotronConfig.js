@@ -6,9 +6,10 @@ if (__DEV__) {
   const tron = Reactotron.configure()
     .use(reactotronRedux())
     .use(reactotronSaga())
+    .useReactNative()
     .connect()
 
-  tron.clear()
-
   console.tron = tron
+
+  tron.clear()
 }
