@@ -45,7 +45,7 @@ export default function Confirm({ navigation }) {
 }
 
 Confirm.navigationOptions = ({ navigation }) => ({
-  title: 'Selecione o horário',
+  title: 'Confirmar agendamento',
   headerLeft: () => (
     <TouchableOpacity
       onPress={() => {
