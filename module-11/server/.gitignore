@@ -5,3 +5,4 @@ tmp/*
 !tmp/.gitkeep
 
 dist
+__tests__/database.sqlite

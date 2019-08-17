@@ -1,4 +1,4 @@
-import './bootstrap.'
+import './bootstrap'
 
 import Youch from 'youch'
 import express from 'express'
