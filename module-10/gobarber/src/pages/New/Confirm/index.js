@@ -21,6 +21,8 @@ export default function Confirm({ navigation }) {
         date: time,
       })
 
+      Alert.alert('Feito!', `Agendamento com ${provider.name} confirmado para ${dateFormatted}`)
+
       navigation.navigate('Dashboard')
     } catch (error) {
       console.tron.log(error)
