@@ -1,12 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 
 export default function TechList() {
-  const [techs, setTechs] = useState([])
-  const [newTech, setNewTech] = useState('')
+  const [techs, setTechs] = useState([]);
+  const [newTech, setNewTech] = useState('');
+
+  useEffect(() => {
+    const techs = window.localStorage.getItem('techs');
+
+    if (techs) {
+      setTechs(JSON.parse(techs));
+    }
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('techs', JSON.stringify(techs));
+  }, [techs]);
 
   function handleAddTech() {
-    setTechs([...techs, newTech])
-    setNewTech('')
+    setTechs([...techs, newTech]);
+    setNewTech('');
   }
 
   return (
@@ -21,5 +33,5 @@ export default function TechList() {
       <input id="tech" value={newTech} onChange={e => setNewTech(e.target.value)} />
       <button onClick={handleAddTech}>Adicionar</button>
     </form>
-  )
+  );
 }
