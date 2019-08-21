@@ -8,17 +8,17 @@ import api from '~/services/api'
 
 import { Container, HourList, Hour, Title } from './styles'
 
-export default function SelectDateTime({ navigation }) {
+export default function SelectDateTime ({ navigation }) {
   const [date, setDate] = useState(new Date())
   const [hours, setHours] = useState([])
   const provider = navigation.getParam('provider')
 
   useEffect(() => {
-    async function loadAvailable() {
+    async function loadAvailable () {
       const response = await api.get(`providers/${provider.id}/available`, {
         params: {
-          date: date.getTime(),
-        },
+          date: date.getTime()
+        }
       })
 
       setHours(response.data)
@@ -27,10 +27,10 @@ export default function SelectDateTime({ navigation }) {
     loadAvailable()
   }, [date, provider.id])
 
-  function handleSelectHour(time) {
+  function handleSelectHour (time) {
     navigation.navigate('Confirm', {
       provider,
-      time,
+      time
     })
   }
 
@@ -63,5 +63,5 @@ SelectDateTime.navigationOptions = ({ navigation }) => ({
     >
       <Icon name="chevron-left" size={20} color="#fff" />
     </TouchableOpacity>
-  ),
+  )
 })

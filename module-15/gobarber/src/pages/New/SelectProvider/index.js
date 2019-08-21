@@ -7,11 +7,11 @@ import Background from '~/components/Background'
 
 import { Container, ProvidersList, Provider, Avatar, Name } from './styles'
 
-export default function SelectProvider({ navigation }) {
+export default function SelectProvider ({ navigation }) {
   const [providers, setProviders] = useState([])
 
   useEffect(() => {
-    async function loadProviders() {
+    async function loadProviders () {
       const response = await api.get('providers')
 
       setProviders(response.data)
@@ -30,7 +30,7 @@ export default function SelectProvider({ navigation }) {
             <Provider onPress={() => navigation.navigate('SelectDateTime', { provider })}>
               <Avatar
                 source={{
-                  uri: provider.avatar ? provider.avatar.url : `https://api.adorable.io/avatar/50/${provider.name}.png`,
+                  uri: provider.avatar ? provider.avatar.url : `https://api.adorable.io/avatar/50/${provider.name}.png`
                 }}
               />
               <Name>{provider.name}</Name>
@@ -52,5 +52,5 @@ SelectProvider.navigationOptions = ({ navigation }) => ({
     >
       <Icon name="chevron-left" size={20} color="#fff" />
     </TouchableOpacity>
-  ),
+  )
 })

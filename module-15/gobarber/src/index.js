@@ -9,7 +9,7 @@ import { StatusBar } from 'react-native'
 import { store, persistor } from './store'
 import App from './App'
 
-function Index() {
+function Index () {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
@@ -21,5 +21,5 @@ function Index() {
 }
 
 export default CodePush({
-  checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME,
+  checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME
 })(Index)

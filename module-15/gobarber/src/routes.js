@@ -4,7 +4,7 @@ import {
   createAppContainer,
   createSwitchNavigator,
   createBottomTabNavigator,
-  createStackNavigator,
+  createStackNavigator
 } from 'react-navigation'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -24,7 +24,7 @@ export default (isSigned = false) =>
       {
         Sign: createSwitchNavigator({
           SignIn,
-          SignUp,
+          SignUp
         }),
         App: createBottomTabNavigator(
           {
@@ -34,25 +34,25 @@ export default (isSigned = false) =>
                 {
                   SelectProvider,
                   SelectDateTime,
-                  Confirm,
+                  Confirm
                 },
                 {
                   defaultNavigationOptions: {
                     headerTransparent: true,
                     headerTintColor: '#fff',
                     headerLeftContainerStyle: {
-                      marginLeft: 20,
-                    },
-                  },
-                },
+                      marginLeft: 20
+                    }
+                  }
+                }
               ),
               navigationOptions: {
                 tabBarVisible: false,
                 tabBarLabel: 'Agendar',
-                tabBarIcon: <Icon name="add-circle-outline" size={20} color="rgba(255, 255, 255, 0.6)" />,
-              },
+                tabBarIcon: <Icon name="add-circle-outline" size={20} color="rgba(255, 255, 255, 0.6)" />
+              }
             },
-            Profile,
+            Profile
           },
           {
             resetOnBlur: true,
@@ -61,14 +61,14 @@ export default (isSigned = false) =>
               activeTintColor: '#fff',
               inactiveTintColor: 'rgba(255, 255, 255, 0.6)',
               style: {
-                backgroundColor: '#8d41a8',
-              },
-            },
-          },
-        ),
+                backgroundColor: '#8d41a8'
+              }
+            }
+          }
+        )
       },
       {
-        initialRouteName: isSigned ? 'App' : 'Sign',
-      },
-    ),
+        initialRouteName: isSigned ? 'App' : 'Sign'
+      }
+    )
   )

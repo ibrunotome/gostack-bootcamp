@@ -6,9 +6,9 @@ export default reducers => {
     {
       key: 'gobarber',
       storage,
-      whitelist: ['auth', 'user'],
+      whitelist: ['auth', 'user']
     },
-    reducers,
+    reducers
   )
 
   return persistedReducer
