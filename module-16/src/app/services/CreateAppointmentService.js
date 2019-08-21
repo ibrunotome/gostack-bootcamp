@@ -8,9 +8,9 @@ import Notification from '../schemas/Notification'
 import Cache from '../../lib/Cache'
 
 class CreateAppointmentService {
-  async run ({ provider_id, user_id, date }) {
+  async run ({ providerId, userId, date }) {
     const isProvider = await User.findOne({
-      where: { id: provider_id, provider: true }
+      where: { id: providerId, provider: true }
     })
 
     if (!isProvider) {
@@ -25,7 +25,7 @@ class CreateAppointmentService {
 
     const checkAvailability = await Appointment.findOne({
       where: {
-        provider_id,
+        provider_id: providerId,
         canceled_at: null,
         date: hourStart
       }
@@ -36,22 +36,22 @@ class CreateAppointmentService {
     }
 
     const appointment = await Appointment.create({
-      user_id: user_id,
-      provider_id,
+      user_id: userId,
+      provider_id: providerId,
       date
     })
 
-    const user = await User.findByPk(user_id)
+    const user = await User.findByPk(userId)
     const formattedDate = format(hourStart, "dd 'de' MMMM', às' H:mm'h", {
       locale: ptBR
     })
 
     await Notification.create({
       content: `Novo agendamento de ${user.name} para o dia ${formattedDate}`,
-      user: provider_id
+      user: providerId
     })
 
-    await Cache.invalidatePrefix(`user:${user_id}:appointments`)
+    await Cache.invalidatePrefix(`user:${userId}:appointments`)
 
     return appointment
   }

@@ -12,10 +12,10 @@ import {
 import Appointment from '../models/Appointment'
 
 class AvailableService {
-  async run ({ date, provider_id }) {
+  async run ({ date, providerId }) {
     const appointments = await Appointment.findAll({
       where: {
-        provider_id: provider_id,
+        provider_id: providerId,
         canceled_at: null,
         date: {
           [Op.between]: [startOfDay(date), endOfDay(date)]

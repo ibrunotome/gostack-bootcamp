@@ -7,8 +7,8 @@ import Queue from '../../lib/Queue'
 import CancellationMail from '../jobs/CancellationMail'
 
 class CancelAppointmentService {
-  async run ({ provider_id, user_id }) {
-    const appointment = await Appointment.findByPk(provider_id, {
+  async run ({ providerId, userId }) {
+    const appointment = await Appointment.findByPk(providerId, {
       include: [
         {
           model: User,
@@ -23,7 +23,7 @@ class CancelAppointmentService {
       ]
     })
 
-    if (appointment.user_id !== user_id) {
+    if (appointment.user_id !== userId) {
       throw new Error('Forbidden')
     }
 
@@ -45,7 +45,7 @@ class CancelAppointmentService {
       appointment
     })
 
-    await Cache.invalidatePrefix(`user:${user_id}:appointments`)
+    await Cache.invalidatePrefix(`user:${userId}:appointments`)
 
     return appointment
   }

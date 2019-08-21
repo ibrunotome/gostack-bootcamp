@@ -45,30 +45,42 @@ class AppointmentController {
   }
 
   async store (req, res) {
-    const { provider_id, date } = req.body
+    const { providerId, date } = req.body
 
-    if (req.userId === provider_id) {
+    if (req.userId === providerId) {
       return res
         .status(400)
         .json({ error: 'You cannot make a appointment with your self!' })
     }
 
-    const appointment = await CreateAppointmentService.run({
-      provider_id,
-      user_id: req.userId,
-      date
-    })
+    try {
+      const appointment = await CreateAppointmentService.run({
+        providerId,
+        userId: req.userId,
+        date
+      })
 
-    return res.json(appointment)
+      return res.json(appointment)
+    } catch (error) {
+      return res.status(400).json({
+        message: error.message
+      })
+    }
   }
 
   async delete (req, res) {
-    const appointment = await CancelAppointmentService.run({
-      provider_id: req.params.id,
-      user_id: req.userId
-    })
+    try {
+      const appointment = await CancelAppointmentService.run({
+        providerId: req.params.id,
+        userId: req.userId
+      })
 
-    return res.json(appointment)
+      return res.json(appointment)
+    } catch (error) {
+      return res.status(400).json({
+        message: error.message
+      })
+    }
   }
 }
 
