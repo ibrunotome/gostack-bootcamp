@@ -6,7 +6,7 @@ import { signOut } from '~/store/modules/auth/actions'
 import { updateProfileRequest } from '~/store/modules/user/actions'
 import { Container, Title, Form, FormInput, SubmitButton, LogoutButton, Separator } from './styles'
 
-export default function Profile() {
+export default function Profile () {
   const dispatch = useDispatch()
   const profile = useSelector(state => state.user.profile)
 
@@ -27,19 +27,19 @@ export default function Profile() {
     setConfirmPassword('')
   }, [profile])
 
-  function handleSubmit() {
+  function handleSubmit () {
     dispatch(
       updateProfileRequest({
         name,
         email,
         oldPassword,
         password,
-        confirmPassword,
-      }),
+        confirmPassword
+      })
     )
   }
 
-  function handleLogout() {
+  function handleLogout () {
     dispatch(signOut())
   }
 
@@ -117,5 +117,5 @@ export default function Profile() {
 
 Profile.navigationOptions = {
   tabBarLabel: 'Meu perfil',
-  tabBarIcon: ({ tintColor }) => <Icon name="person" size={20} color={tintColor} />,
+  tabBarIcon: ({ tintColor }) => <Icon name="person" size={20} color={tintColor} />
 }

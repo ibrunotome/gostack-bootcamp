@@ -9,7 +9,7 @@ import { signUpRequest } from '~/store/modules/auth/actions'
 
 import { Container, Form, FormInput, SubmitButton, SignLink, SignLinkText } from './styles'
 
-export default function SignUp({ navigation }) {
+export default function SignUp ({ navigation }) {
   const dispatch = useDispatch()
   const emailRef = useRef()
   const passwordRef = useRef()
@@ -18,7 +18,7 @@ export default function SignUp({ navigation }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  function handleSubmit() {
+  function handleSubmit () {
     dispatch(signUpRequest(name, email, password))
   }
 

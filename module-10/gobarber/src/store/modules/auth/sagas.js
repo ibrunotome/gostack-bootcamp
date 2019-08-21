@@ -4,13 +4,13 @@ import api from '~/services/api'
 
 import { signInSuccess, signFailure } from './actions'
 
-export function* signIn({ payload }) {
+export function * signIn ({ payload }) {
   try {
     const { email, password } = payload
 
     const response = yield call(api.post, 'auth', {
       email,
-      password,
+      password
     })
 
     const { token, user } = response.data
@@ -33,14 +33,14 @@ export function* signIn({ payload }) {
   }
 }
 
-export function* signUp({ payload }) {
+export function * signUp ({ payload }) {
   try {
     const { name, email, password } = payload
 
     yield call(api.post, 'users', {
       name,
       email,
-      password,
+      password
     })
 
     // history.push('/')
@@ -51,7 +51,7 @@ export function* signUp({ payload }) {
   }
 }
 
-export function setToken({ payload }) {
+export function setToken ({ payload }) {
   if (!payload) return
 
   const { token } = payload.auth
@@ -61,7 +61,7 @@ export function setToken({ payload }) {
   }
 }
 
-export function signOut() {
+export function signOut () {
   Alert.alert('Até mais')
 }
 
@@ -69,5 +69,5 @@ export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),
-  takeLatest('@auth/SIGN_OUT', signOut),
+  takeLatest('@auth/SIGN_OUT', signOut)
 ])

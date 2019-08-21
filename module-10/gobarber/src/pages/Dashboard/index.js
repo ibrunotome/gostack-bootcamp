@@ -7,10 +7,10 @@ import Background from '~/components/Background'
 import Appointment from '~/components/Appointment'
 import { Container, Title, List } from './styles'
 
-function Dashboard({ isFocused }) {
+function Dashboard ({ isFocused }) {
   const [appointments, setAppointments] = useState([])
 
-  async function loadAppointments() {
+  async function loadAppointments () {
     const response = await api.get('appointments')
 
     setAppointments(response.data)
@@ -22,14 +22,14 @@ function Dashboard({ isFocused }) {
     }
   }, [isFocused])
 
-  async function handleCancel(id) {
+  async function handleCancel (id) {
     try {
       const response = await api.delete(`appointments/${id}`)
 
       setAppointments(
         appointments.map(appointment =>
-          appointment.id === id ? { ...appointment, canceled_at: response.data.canceled_at } : appointment,
-        ),
+          appointment.id === id ? { ...appointment, canceled_at: response.data.canceled_at } : appointment
+        )
       )
     } catch (error) {
       Alert.alert('Erro', 'Não conseguimos cancelar o agendamento')
@@ -53,7 +53,7 @@ function Dashboard({ isFocused }) {
 
 Dashboard.navigationOptions = {
   tabBarLabel: 'Agendamentos',
-  tabBarIcon: ({ tintColor }) => <Icon name="event" size={20} color={tintColor} />,
+  tabBarIcon: ({ tintColor }) => <Icon name="event" size={20} color={tintColor} />
 }
 
 export default withNavigationFocus(Dashboard)

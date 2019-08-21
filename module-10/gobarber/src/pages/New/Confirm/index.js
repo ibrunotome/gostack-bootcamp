@@ -9,16 +9,16 @@ import Background from '~/components/Background'
 
 import { Container, Avatar, Name, Time, SubmitButton } from './styles'
 
-export default function Confirm({ navigation }) {
+export default function Confirm ({ navigation }) {
   const provider = navigation.getParam('provider')
   const time = navigation.getParam('time')
   const dateFormatted = useMemo(() => formatRelative(parseISO(time), new Date(), { locale: pt }), [time])
 
-  async function handleAddAppointment() {
+  async function handleAddAppointment () {
     try {
       await api.post('appointments', {
         provider_id: provider.id,
-        date: time,
+        date: time
       })
 
       Alert.alert('Feito!', `Agendamento com ${provider.name} confirmado para ${dateFormatted}`)
@@ -35,7 +35,7 @@ export default function Confirm({ navigation }) {
       <Container>
         <Avatar
           source={{
-            uri: provider.avatar ? provider.avatar.url : `https://api.adorable.io/avatar/50/${provider.name}.png`,
+            uri: provider.avatar ? provider.avatar.url : `https://api.adorable.io/avatar/50/${provider.name}.png`
           }}
         />
         <Name>{provider.name}</Name>
@@ -56,5 +56,5 @@ Confirm.navigationOptions = ({ navigation }) => ({
     >
       <Icon name="chevron-left" size={20} color="#fff" />
     </TouchableOpacity>
-  ),
+  )
 })
