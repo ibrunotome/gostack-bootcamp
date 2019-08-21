@@ -1,19 +1,19 @@
-export function addTech(tech) {
+export function addTech (tech) {
   return {
     type: 'ADD_TECH',
-    payload: { tech },
-  };
+    payload: { tech }
+  }
 }
 
-export function getTechsSuccess(data) {
+export function getTechsSuccess (data) {
   return {
     type: 'GET_TECHS_SUCCESS',
-    payload: { data },
-  };
+    payload: { data }
+  }
 }
 
-export function getTechsFailure() {
+export function getTechsFailure () {
   return {
-    type: 'GET_TECHS_FAILURE',
-  };
+    type: 'GET_TECHS_FAILURE'
+  }
 }

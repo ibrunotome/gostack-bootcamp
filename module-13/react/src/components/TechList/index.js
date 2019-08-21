@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { addTech } from '../../store/modules/techs/actions';
+import { addTech } from '../../store/modules/techs/actions'
 
-export default function TechList() {
-  const [newTech, setNewTech] = useState('');
+export default function TechList () {
+  const [newTech, setNewTech] = useState('')
 
-  const dispatch = useDispatch();
-  const techs = useSelector(state => state.techs);
+  const dispatch = useDispatch()
+  const techs = useSelector(state => state.techs)
 
-  function handleAddTech() {
-    dispatch(addTech(newTech));
-    setNewTech('');
+  function handleAddTech () {
+    dispatch(addTech(newTech))
+    setNewTech('')
   }
 
   return (
@@ -26,5 +26,5 @@ export default function TechList() {
       <input id="tech" value={newTech} onChange={e => setNewTech(e.target.value)} />
       <button onClick={handleAddTech}>Adicionar</button>
     </form>
-  );
+  )
 }

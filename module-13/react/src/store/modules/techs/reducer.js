@@ -1,15 +1,15 @@
-import produce from 'immer';
+import produce from 'immer'
 
-export const INITIAL_STATE = [];
+export const INITIAL_STATE = []
 
-export default function techs(state = INITIAL_STATE, action) {
+export default function techs (state = INITIAL_STATE, action) {
   return produce(state, draft => {
     switch (action.type) {
       case 'ADD_TECH':
-        draft.push(action.payload.tech);
-        break;
+        draft.push(action.payload.tech)
+        break
       default:
-        break;
+        break
     }
-  });
+  })
 }
