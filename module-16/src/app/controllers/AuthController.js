@@ -4,7 +4,7 @@ import File from '../models/File'
 import authConfig from '../../config/auth'
 
 class AuthController {
-  async login(req, res) {
+  async login (req, res) {
     const { email, password } = req.body
 
     const user = await User.findOne({
@@ -13,9 +13,9 @@ class AuthController {
         {
           model: File,
           as: 'avatar',
-          attributes: ['id', 'path', 'url'],
-        },
-      ],
+          attributes: ['id', 'path', 'url']
+        }
+      ]
     })
 
     if (!user) {
@@ -34,11 +34,11 @@ class AuthController {
         name,
         email,
         provider,
-        avatar,
+        avatar
       },
       token: jwt.sign({ id }, authConfig.secret, {
-        expiresIn: authConfig.expiresIn,
-      }),
+        expiresIn: authConfig.expiresIn
+      })
     })
   }
 }

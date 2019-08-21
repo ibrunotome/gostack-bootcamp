@@ -24,7 +24,7 @@ const routes = new Router()
 const upload = multer(multerConfig)
 const bruteStore = new BruteRedis({
   host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
+  port: process.env.REDIS_PORT
 })
 
 const bruteForce = new Brute(bruteStore)
@@ -37,7 +37,11 @@ routes.use(authMiddleware)
 routes.put('/users', validateUserUpdate, UserController.update)
 routes.get('/providers', ProviderController.index)
 routes.get('/providers/:providerId/available', AvailableController.index)
-routes.post('/appointments', validateAppointmentStore, AppointmentController.store)
+routes.post(
+  '/appointments',
+  validateAppointmentStore,
+  AppointmentController.store
+)
 routes.get('/appointments', AppointmentController.index)
 routes.delete('/appointments/:id', AppointmentController.delete)
 routes.get('/schedules', ScheduleController.index)

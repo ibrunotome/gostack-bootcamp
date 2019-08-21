@@ -7,20 +7,20 @@ import Queue from '../../lib/Queue'
 import CancellationMail from '../jobs/CancellationMail'
 
 class CancelAppointmentService {
-  async run({ provider_id, user_id }) {
+  async run ({ provider_id, user_id }) {
     const appointment = await Appointment.findByPk(provider_id, {
       include: [
         {
           model: User,
           as: 'provider',
-          attributes: ['name', 'email'],
+          attributes: ['name', 'email']
         },
         {
           model: User,
           as: 'user',
-          attributes: ['name'],
-        },
-      ],
+          attributes: ['name']
+        }
+      ]
     })
 
     if (appointment.user_id !== user_id) {
@@ -42,7 +42,7 @@ class CancelAppointmentService {
     await appointment.save()
 
     await Queue.add(CancellationMail.key, {
-      appointment,
+      appointment
     })
 
     await Cache.invalidatePrefix(`user:${user_id}:appointments`)

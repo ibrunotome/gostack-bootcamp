@@ -5,7 +5,7 @@ import Appointment from '../models/Appointment'
 import User from '../models/User'
 
 class ScheduleController {
-  async index(req, res) {
+  async index (req, res) {
     const user = await User.findByPk(req.userId)
 
     if (!user.provider) {
@@ -19,17 +19,17 @@ class ScheduleController {
         provider_id: req.userId,
         canceled_at: null,
         date: {
-          [Op.between]: [startOfDay(parseDate), endOfDay(parseDate)],
-        },
+          [Op.between]: [startOfDay(parseDate), endOfDay(parseDate)]
+        }
       },
       include: [
         {
           model: User,
           as: 'user',
-          attributes: ['name'],
-        },
+          attributes: ['name']
+        }
       ],
-      order: ['date'],
+      order: ['date']
     })
 
     return res.json(appointments)

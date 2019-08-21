@@ -1,18 +1,26 @@
 import { Op } from 'sequelize'
-import { startOfDay, endOfDay, setSeconds, setHours, setMinutes, format, isAfter } from 'date-fns'
+import {
+  startOfDay,
+  endOfDay,
+  setSeconds,
+  setHours,
+  setMinutes,
+  format,
+  isAfter
+} from 'date-fns'
 
 import Appointment from '../models/Appointment'
 
 class AvailableService {
-  async run({ date, provider_id }) {
+  async run ({ date, provider_id }) {
     const appointments = await Appointment.findAll({
       where: {
         provider_id: provider_id,
         canceled_at: null,
         date: {
-          [Op.between]: [startOfDay(date), endOfDay(date)],
-        },
-      },
+          [Op.between]: [startOfDay(date), endOfDay(date)]
+        }
+      }
     })
 
     const schedule = [
@@ -27,7 +35,7 @@ class AvailableService {
       '16:00',
       '17:00',
       '18:00',
-      '19:00',
+      '19:00'
     ]
 
     const available = schedule.map(time => {
@@ -37,7 +45,9 @@ class AvailableService {
       return {
         time,
         value: format(value, "yyyy-MM-dd'T'HH:mm:ssxxx"),
-        available: isAfter(value, new Date()) && !appointments.find(a => format(a.date, 'HH:mm') === time),
+        available:
+          isAfter(value, new Date()) &&
+          !appointments.find(a => format(a.date, 'HH:mm') === time)
       }
     })
 

@@ -1,7 +1,7 @@
 import AvailableService from '../services/AvailableService'
 
 class AvailableController {
-  async index(req, res) {
+  async index (req, res) {
     const { date } = req.query
 
     if (!date) {
@@ -12,7 +12,7 @@ class AvailableController {
 
     const available = await AvailableService.run({
       date: searchDate,
-      provider_id: req.params.providerId,
+      provider_id: req.params.providerId
     })
 
     return res.json(available)

@@ -3,7 +3,7 @@ import File from '../models/File'
 import Cache from '../../lib/Cache'
 
 class UserController {
-  async store(req, res) {
+  async store (req, res) {
     const userExists = await User.findOne({ where: { email: req.body.email } })
 
     if (userExists !== null) {
@@ -20,11 +20,11 @@ class UserController {
       id,
       name,
       email,
-      provider,
+      provider
     })
   }
 
-  async update(req, res) {
+  async update (req, res) {
     const { email, oldPassword } = req.body
 
     const user = await User.findByPk(req.userId)
@@ -48,16 +48,16 @@ class UserController {
         {
           model: File,
           as: 'avatar',
-          attributes: ['id', 'path', 'url'],
-        },
-      ],
+          attributes: ['id', 'path', 'url']
+        }
+      ]
     })
 
     return res.json({
       id,
       name,
       email,
-      avatar,
+      avatar
     })
   }
 }

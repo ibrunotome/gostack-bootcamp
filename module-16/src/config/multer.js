@@ -11,6 +11,6 @@ export default {
 
         return cb(null, res.toString('hex') + extname(file.originalname))
       })
-    },
-  }),
+    }
+  })
 }

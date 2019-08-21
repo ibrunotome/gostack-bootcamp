@@ -7,7 +7,7 @@ import CreateAppointmentService from '../services/CreateAppointmentService'
 import CancelAppointmentService from '../services/CancelAppointmentService'
 
 class AppointmentController {
-  async index(req, res) {
+  async index (req, res) {
     const { page = 1 } = req.query
 
     const cacheKey = `user:${req.userId}:appointments:${page}`
@@ -32,11 +32,11 @@ class AppointmentController {
             {
               model: File,
               as: 'avatar',
-              attributes: ['id', 'path', 'url'],
-            },
-          ],
-        },
-      ],
+              attributes: ['id', 'path', 'url']
+            }
+          ]
+        }
+      ]
     })
 
     await Cache.set(cacheKey, appointments)
@@ -44,26 +44,28 @@ class AppointmentController {
     return res.json(appointments)
   }
 
-  async store(req, res) {
+  async store (req, res) {
     const { provider_id, date } = req.body
 
     if (req.userId === provider_id) {
-      return res.status(400).json({ error: 'You cannot make a appointment with your self!' })
+      return res
+        .status(400)
+        .json({ error: 'You cannot make a appointment with your self!' })
     }
 
     const appointment = await CreateAppointmentService.run({
       provider_id,
       user_id: req.userId,
-      date,
+      date
     })
 
     return res.json(appointment)
   }
 
-  async delete(req, res) {
+  async delete (req, res) {
     const appointment = await CancelAppointmentService.run({
       provider_id: req.params.id,
-      user_id: req.userId,
+      user_id: req.userId
     })
 
     return res.json(appointment)

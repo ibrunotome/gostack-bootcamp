@@ -8,16 +8,20 @@ export default async (req, res, next) => {
       oldPassword: Yup.string().min(8),
       password: Yup.string()
         .min(8)
-        .when('oldPassword', (oldPassword, field) => (oldPassword ? field.required() : field)),
+        .when('oldPassword', (oldPassword, field) =>
+          oldPassword ? field.required() : field
+        ),
       confirmPassword: Yup.string().when('password', (password, field) =>
-        password ? field.required().oneOf([Yup.ref('password')]) : field,
-      ),
+        password ? field.required().oneOf([Yup.ref('password')]) : field
+      )
     })
 
     await schema.validate(req.body, { abortEarly: false })
 
     return next()
   } catch (error) {
-    return res.status(400).json({ error: 'Validation fails', messages: error.inner })
+    return res
+      .status(400)
+      .json({ error: 'Validation fails', messages: error.inner })
   }
 }
