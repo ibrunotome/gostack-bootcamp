@@ -13,7 +13,7 @@ import { store, persistor } from './store'
 
 import GlobalStyle from './styles/global'
 
-function App() {
+function App () {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>

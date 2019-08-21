@@ -15,13 +15,13 @@ const schema = Yup.object().shape({
     .required('O e-mail é obrigatório'),
   password: Yup.string()
     .min(6, 'No mínimo 6 caracteres')
-    .required('A senha é obrigatória'),
+    .required('A senha é obrigatória')
 })
 
-export default function SignUp() {
+export default function SignUp () {
   const dispatch = useDispatch()
 
-  function handleSubmit({ name, email, password }) {
+  function handleSubmit ({ name, email, password }) {
     dispatch(signUpRequest(name, email, password))
   }
 

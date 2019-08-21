@@ -9,7 +9,7 @@ import {
   setSeconds,
   isEqual,
   isBefore,
-  parseISO,
+  parseISO
 } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import api from '~/services/api'
@@ -20,19 +20,19 @@ import { Container, Time } from './styles'
 
 const range = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
-export default function Dashboard() {
+export default function Dashboard () {
   const [schedule, setSchedule] = useState([])
   const [date, setDate] = useState(new Date())
 
   const dateFormatted = useMemo(
     () => format(date, "d 'de' MMMM", { locale: pt }),
-    [date],
+    [date]
   )
 
   useEffect(() => {
-    async function loadSchedule() {
+    async function loadSchedule () {
       const response = await api.get('schedules', {
-        params: { date },
+        params: { date }
       })
 
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -45,8 +45,8 @@ export default function Dashboard() {
           time: `${hour}:00h`,
           past: isBefore(compareDate, new Date()),
           appointment: response.data.find(a =>
-            isEqual(parseISO(a.date), compareDate),
-          ),
+            isEqual(parseISO(a.date), compareDate)
+          )
         }
       })
 
@@ -56,11 +56,11 @@ export default function Dashboard() {
     loadSchedule()
   }, [])
 
-  function handlePrevDay() {
+  function handlePrevDay () {
     setDate(subDays(date, 1))
   }
 
-  function handleNextDay() {
+  function handleNextDay () {
     setDate(addDays(date, 1))
   }
 

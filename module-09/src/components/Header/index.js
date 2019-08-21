@@ -7,7 +7,7 @@ import logo from '~/assets/logo-purple.svg'
 
 import { Container, Content, Profile } from './styles'
 
-export default function Header() {
+export default function Header () {
   const profile = useSelector(state => state.user.profile)
 
   return (

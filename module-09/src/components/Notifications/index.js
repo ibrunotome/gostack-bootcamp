@@ -10,20 +10,20 @@ import {
   Badge,
   NotificationList,
   Scroll,
-  Notification,
+  Notification
 } from './styles'
 
-export default function Notifications() {
+export default function Notifications () {
   const [visible, setVisible] = useState(false)
   const [notifications, setNotifications] = useState([])
 
   const hasUnread = useMemo(
     () => !!notifications.find(notification => notification.read === false),
-    [notifications],
+    [notifications]
   )
 
   useEffect(() => {
-    async function loadNotifications() {
+    async function loadNotifications () {
       const response = await api.get('notifications')
 
       const data = response.data.map(notification => ({
@@ -31,8 +31,8 @@ export default function Notifications() {
         timeDistance: formatDistance(
           parseISO(notification.createdAt),
           new Date(),
-          { addSuffix: true, locale: pt },
-        ),
+          { addSuffix: true, locale: pt }
+        )
       }))
 
       setNotifications(data)
@@ -41,19 +41,19 @@ export default function Notifications() {
     loadNotifications()
   }, [])
 
-  function handleToggleVisible() {
+  function handleToggleVisible () {
     setVisible(!visible)
   }
 
-  async function handleMarkAsRead(id) {
+  async function handleMarkAsRead (id) {
     await api.put(`notifications/${id}`)
 
     setNotifications(
       notifications.map(notification =>
         notification._id === id
           ? { ...notification, read: true }
-          : notification.read,
-      ),
+          : notification.read
+      )
     )
   }
 

@@ -8,22 +8,22 @@ import { updateProfileRequest } from '~/store/modules/user/actions'
 
 import AvatarInput from './AvatarInput'
 
-export default function Profile() {
+export default function Profile () {
   const dispatch = useDispatch()
   const profile = useSelector(state => state.user.profile)
 
-  function handleSubmit(data) {
+  function handleSubmit (data) {
     dispatch(updateProfileRequest(data))
   }
 
-  function handleSignOut() {
+  function handleSignOut () {
     dispatch(signOut())
   }
 
   return (
     <Container>
       <Form initialData={profile} onSubmit={handleSubmit}>
-        <AvatarInput name="avatar_id" />
+        <AvatarInput name="avatarId" />
         <Input name="name" placeholder="Nome completo" />
         <Input name="email" type="email" placeholder="Seu endereço de e-mail" />
 
