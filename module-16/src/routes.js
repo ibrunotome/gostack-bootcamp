@@ -9,21 +9,27 @@ import ProviderController from './app/controllers/ProviderController'
 import AvailableController from './app/controllers/AvailableController'
 import NotificationController from './app/controllers/NotificationController'
 
+import validateUserStore from './app/validators/UserStore'
+import validateUserUpdate from './app/validators/UserUpdate'
+import validateAuth from './app/validators/auth'
+import validateAppointmentStore from './app/validators/AppointmentStore'
+
 import authMiddleware from './app/middlewares/auth'
 import AppointmentController from './app/controllers/AppointmentController'
 import ScheduleController from './app/controllers/ScheduleController'
 
 const routes = new Router()
 const upload = multer(multerConfig)
-routes.post('/users', UserController.store)
-routes.post('/auth', AuthController.login)
+
+routes.post('/users', validateUserStore, UserController.store)
+routes.post('/auth', validateAuth, AuthController.login)
 
 routes.use(authMiddleware)
 
-routes.put('/users', UserController.update)
+routes.put('/users', validateUserUpdate, UserController.update)
 routes.get('/providers', ProviderController.index)
 routes.get('/providers/:providerId/available', AvailableController.index)
-routes.post('/appointments', AppointmentController.store)
+routes.post('/appointments', validateAppointmentStore, AppointmentController.store)
 routes.get('/appointments', AppointmentController.index)
 routes.delete('/appointments/:id', AppointmentController.delete)
 routes.get('/schedules', ScheduleController.index)
