@@ -9,7 +9,7 @@ import routes from './routes'
 import './database'
 
 class App {
-  constructor() {
+  constructor () {
     this.server = express()
 
     this.middlewares()
@@ -17,15 +17,15 @@ class App {
     this.exceptionHandler()
   }
 
-  middlewares() {
+  middlewares () {
     this.server.use(express.json())
   }
 
-  routes() {
+  routes () {
     this.server.use(routes)
   }
 
-  exceptionHandler() {
+  exceptionHandler () {
     this.server.use(async (err, req, res, next) => {
       if (process.env.NODE_ENV === 'development') {
         const errors = await new Youch(err, req).toJSON()

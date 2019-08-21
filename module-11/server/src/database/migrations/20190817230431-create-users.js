@@ -7,32 +7,32 @@ module.exports = {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: false,
+        allowNull: false
       },
       name: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
       email: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
       password_hash: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
       created_at: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: false
       },
       updated_at: {
         type: Sequelize.DATE,
-        allowNull: false,
-      },
+        allowNull: false
+      }
     })
   },
 
   down: queryInterface => {
     return queryInterface.dropTable('users')
-  },
+  }
 }
