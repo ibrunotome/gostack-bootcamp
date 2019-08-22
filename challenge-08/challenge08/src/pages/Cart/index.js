@@ -22,28 +22,28 @@ import {
   Order,
   OrderText,
   EmptyContainer,
-  EmptyText,
+  EmptyText
 } from './styles'
 
-function Cart() {
+function Cart () {
   const products = useSelector(state =>
     state.cart.map(product => ({
       ...product,
-      subtotal: formatPrice(product.price * product.amount),
-    })),
+      subtotal: formatPrice(product.price * product.amount)
+    }))
   )
 
   const totalPrice = useSelector(state =>
-    formatPrice(state.cart.reduce((total, product) => total + product.price * product.amount, 0)),
+    formatPrice(state.cart.reduce((total, product) => total + product.price * product.amount, 0))
   )
 
   const dispatch = useDispatch()
 
-  function decrement(product) {
+  function decrement (product) {
     dispatch(CartActions.updateAmountRequest(product.id, product.amount - 1))
   }
 
-  function increment(product) {
+  function increment (product) {
     dispatch(CartActions.updateAmountRequest(product.id, product.amount + 1))
   }
 

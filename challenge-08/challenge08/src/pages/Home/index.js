@@ -13,7 +13,7 @@ import {
   AddButton,
   ProductAmount,
   ProductAmountText,
-  AddButtonText,
+  AddButtonText
 } from './styles'
 
 import api from '../../services/api'
@@ -22,25 +22,25 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 
 Icon.loadFont()
 
-function Home() {
+function Home () {
   const [products, setProducts] = useState([])
 
   const amount = useSelector(state =>
     state.cart.reduce((amount, product) => {
       amount[product.id] = product.amount
       return amount
-    }, {}),
+    }, {})
   )
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    async function getProducts() {
+    async function getProducts () {
       const response = await api.get('/products')
 
       const data = response.data.map(product => ({
         ...product,
-        priceFormatted: formatPrice(product.price),
+        priceFormatted: formatPrice(product.price)
       }))
 
       setProducts(data)
@@ -49,11 +49,11 @@ function Home() {
     getProducts()
   }, [])
 
-  function handleAddProduct(id) {
+  function handleAddProduct (id) {
     dispatch(CartActions.addToCartRequest(id))
   }
 
-  function renderProduct({ item }) {
+  function renderProduct ({ item }) {
     return (
       <Product key={item.id}>
         <ProductImage source={{ uri: item.image }} />

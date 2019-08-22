@@ -7,7 +7,7 @@ import store from './store'
 import Routes from './routes'
 import Navigation from './navigation'
 
-export default function App() {
+export default function App () {
   return (
     <Provider store={store}>
       <StatusBar barStyle="light-content" backgroundColor="#7159c1" />

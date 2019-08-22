@@ -55,7 +55,7 @@ export const ProductControls = styled.View`
 `
 
 export const ProductAmount = styled.TextInput.attrs({
-  readonly: true,
+  readonly: true
 })`
   background: #fff;
   padding: 5px;
