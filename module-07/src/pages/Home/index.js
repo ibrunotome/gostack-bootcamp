@@ -10,15 +10,15 @@ import { ProductList } from './styles'
 
 class Home extends Component {
   state = {
-    products: [],
+    products: []
   }
 
-  async componentDidMount() {
+  async componentDidMount () {
     const response = await api.get('products')
 
     const data = response.data.map(product => ({
       ...product,
-      priceFormatted: formatPrice(product.price),
+      priceFormatted: formatPrice(product.price)
     }))
 
     this.setState({ products: data })
@@ -32,7 +32,7 @@ class Home extends Component {
     this.props.history.push('/cart')
   }
 
-  render() {
+  render () {
     const { products } = this.state
     const { amount } = this.props
 
@@ -66,12 +66,12 @@ const mapStateToProps = state => ({
     amount[product.id] = product.amount
 
     return amount
-  }, {}),
+  }, {})
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators(CartActions, dispatch)
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Home)

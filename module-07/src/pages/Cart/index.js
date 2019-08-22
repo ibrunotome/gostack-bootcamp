@@ -4,19 +4,19 @@ import { bindActionCreators } from 'redux'
 import {
   MdRemoveCircleOutline,
   MdAddCircleOutline,
-  MdDelete,
+  MdDelete
 } from 'react-icons/md'
 
 import { formatPrice } from '../../util/format'
 import * as CartActions from '../../store/modules/cart/actions'
 import { Container, ProductTable, Total } from './styles'
 
-function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
-  function increment(product) {
+function Cart ({ cart, total, removeFromCart, updateAmountRequest }) {
+  function increment (product) {
     updateAmountRequest(product.id, product.amount + 1)
   }
 
-  function decrement(product) {
+  function decrement (product) {
     updateAmountRequest(product.id, product.amount - 1)
   }
 
@@ -84,19 +84,19 @@ function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
 const mapStateToProps = state => ({
   cart: state.cart.map(product => ({
     ...product,
-    subtotal: formatPrice(product.price * product.amount),
+    subtotal: formatPrice(product.price * product.amount)
   })),
   total: formatPrice(
     state.cart.reduce(
       (total, product) => total + product.price * product.amount,
-      0,
-    ),
-  ),
+      0
+    )
+  )
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators(CartActions, dispatch)
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Cart)
