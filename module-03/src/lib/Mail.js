@@ -5,20 +5,20 @@ import nodemailerhbs from 'nodemailer-express-handlebars'
 import mailConfig from '../config/mail'
 
 class Mail {
-  constructor() {
+  constructor () {
     const { host, port, secure, auth } = mailConfig
 
     this.transporter = nodemailer.createTransport({
       host,
       port,
       secure,
-      auth: auth.user ? auth : null,
+      auth: auth.user ? auth : null
     })
 
     this.configureTemplates()
   }
 
-  configureTemplates() {
+  configureTemplates () {
     const viewPath = resolve(__dirname, '..', 'app', 'views', 'emails')
 
     this.transporter.use(
@@ -28,18 +28,18 @@ class Mail {
           layoutsDir: resolve(viewPath, 'layouts'),
           partialsDir: resolve(viewPath, 'partials'),
           defaultLayout: 'default',
-          extname: '.hbs',
+          extname: '.hbs'
         }),
         viewPath,
-        extName: '.hbs',
-      }),
+        extName: '.hbs'
+      })
     )
   }
 
-  sendMail(message) {
+  sendMail (message) {
     return this.transporter.sendMail({
       ...mailConfig.default,
-      ...message,
+      ...message
     })
   }
 }

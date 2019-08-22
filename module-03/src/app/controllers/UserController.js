@@ -3,7 +3,7 @@ import User from '../models/User'
 import File from '../models/File'
 
 class UserController {
-  async store(req, res) {
+  async store (req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       email: Yup.string()
@@ -11,7 +11,7 @@ class UserController {
         .required(),
       password: Yup.string()
         .required()
-        .min(8),
+        .min(8)
     })
 
     if (!(await schema.isValid(req.body))) {
@@ -30,11 +30,11 @@ class UserController {
       id,
       name,
       email,
-      provider,
+      provider
     })
   }
 
-  async update(req, res) {
+  async update (req, res) {
     const schema = Yup.object().shape({
       name: Yup.string(),
       email: Yup.string().email(),
@@ -43,8 +43,8 @@ class UserController {
         .min(8)
         .when('oldPassword', (oldPassword, field) => (oldPassword ? field.required() : field)),
       confirmPassword: Yup.string().when('password', (password, field) =>
-        password ? field.required().oneOf([Yup.ref('password')]) : field,
-      ),
+        password ? field.required().oneOf([Yup.ref('password')]) : field
+      )
     })
 
     if (!(await schema.isValid(req.body))) {
@@ -74,16 +74,16 @@ class UserController {
         {
           model: File,
           as: 'avatar',
-          attributes: ['id', 'path', 'url'],
-        },
-      ],
+          attributes: ['id', 'path', 'url']
+        }
+      ]
     })
 
     return res.json({
       id,
       name,
       email,
-      avatar,
+      avatar
     })
   }
 }

@@ -2,21 +2,21 @@ import Sequelize from 'sequelize'
 import Model from './Model'
 
 class File extends Model {
-  static init(sequelize) {
+  static init (sequelize) {
     super.init(
       {
         name: Sequelize.STRING,
         path: Sequelize.STRING,
         url: {
           type: Sequelize.VIRTUAL,
-          get() {
+          get () {
             return `${process.env.APP_URL}/files/${this.path}`
-          },
-        },
+          }
+        }
       },
       {
-        sequelize,
-      },
+        sequelize
+      }
     )
 
     return this

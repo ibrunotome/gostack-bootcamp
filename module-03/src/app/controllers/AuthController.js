@@ -5,12 +5,12 @@ import File from '../models/File'
 import authConfig from '../../config/auth'
 
 class AuthController {
-  async login(req, res) {
+  async login (req, res) {
     const schema = Yup.object().shape({
       email: Yup.string()
         .email()
         .required(),
-      password: Yup.string().required(),
+      password: Yup.string().required()
     })
 
     if (!(await schema.isValid(req.body))) {
@@ -25,9 +25,9 @@ class AuthController {
         {
           model: File,
           as: 'avatar',
-          attributes: ['id', 'path', 'url'],
-        },
-      ],
+          attributes: ['id', 'path', 'url']
+        }
+      ]
     })
 
     if (!user) {
@@ -46,11 +46,11 @@ class AuthController {
         name,
         email,
         provider,
-        avatar,
+        avatar
       },
       token: jwt.sign({ id }, authConfig.secret, {
-        expiresIn: authConfig.expiresIn,
-      }),
+        expiresIn: authConfig.expiresIn
+      })
     })
   }
 }

@@ -3,11 +3,11 @@ import ptBR from 'date-fns/locale/pt-BR'
 import Mail from '../../lib/Mail'
 
 class CancellationMail {
-  get key() {
+  get key () {
     return 'CancellationMail'
   }
 
-  async handle({ data }) {
+  async handle ({ data }) {
     const { appointment } = data
 
     await Mail.sendMail({
@@ -17,8 +17,8 @@ class CancellationMail {
       context: {
         provider: appointment.provider.name,
         user: appointment.user.name,
-        date: format(parseISO(appointment.date), "dd 'de' MMMM', às' H:mm'h", { locale: ptBR }),
-      },
+        date: format(parseISO(appointment.date), "dd 'de' MMMM', às' H:mm'h", { locale: ptBR })
+      }
     })
   }
 }
