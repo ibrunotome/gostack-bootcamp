@@ -10,17 +10,18 @@ export default class Repository extends Component {
   static propTypes = {
     match: PropTypes.shape({
       params: PropTypes.shape({
-        repository: PropTypes.string,
-      }),
-    }).isRequired,
+        repository: PropTypes.string
+      })
+    }).isRequired
   }
 
   state = {
     repository: {},
     issues: [],
-    loading: true,
+    loading: true
   }
-  async componentDidMount() {
+
+  async componentDidMount () {
     const { match } = this.props
 
     const repoName = decodeURIComponent(match.params.repository)
@@ -30,18 +31,19 @@ export default class Repository extends Component {
       api.get(`/repos/${repoName}/issues`, {
         params: {
           state: 'open',
-          per_page: 5,
-        },
-      }),
+          per_page: 5
+        }
+      })
     ])
 
     this.setState({
       repository: repository.data,
       issues: issues.data,
-      loading: false,
+      loading: false
     })
   }
-  render() {
+
+  render () {
     const { repository, issues, loading } = this.state
 
     if (loading) {

@@ -12,10 +12,10 @@ export default class Main extends Component {
   state = {
     newRepo: '',
     repositories: [],
-    loading: false,
+    loading: false
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const repositories = localStorage.getItem('repositories')
 
     if (repositories) {
@@ -23,7 +23,7 @@ export default class Main extends Component {
     }
   }
 
-  componentDidUpdate(_, prevState) {
+  componentDidUpdate (_, prevState) {
     const { repositories } = this.state
 
     if (prevState.repositories !== repositories) {
@@ -44,17 +44,17 @@ export default class Main extends Component {
     const response = await api.get(`/repos/${newRepo}`)
 
     const data = {
-      name: response.data.full_name,
+      name: response.data.full_name
     }
 
     this.setState({
       repositories: [...repositories, data],
       newRepo: '',
-      loading: false,
+      loading: false
     })
   }
 
-  render() {
+  render () {
     const { newRepo, repositories, loading } = this.state
 
     return (
