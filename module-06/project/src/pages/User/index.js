@@ -5,20 +5,20 @@ import { Container, Header, Avatar, Name, Bio, Stars, Starred, OwnerAvatar, Info
 
 export default class User extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam('user').name,
+    title: navigation.getParam('user').name
   })
 
   static propTypes = {
     navigation: PropTypes.shape({
-      getParam: PropTypes.func,
-    }).isRequired,
+      getParam: PropTypes.func
+    }).isRequired
   }
 
   state = {
-    stars: [],
+    stars: []
   }
 
-  async componentDidMount() {
+  async componentDidMount () {
     const { navigation } = this.props
     const user = navigation.getParam('user')
 
@@ -27,7 +27,7 @@ export default class User extends Component {
     this.setState({ stars: response.data })
   }
 
-  render() {
+  render () {
     const { navigation } = this.props
     const { stars } = this.state
     const user = navigation.getParam('user')

@@ -36,7 +36,7 @@ export const Bio = styled.Text`
 `
 
 export const Stars = styled.FlatList.attrs({
-  showsVerticalScrollIndicator: false,
+  showsVerticalScrollIndicator: false
 })`
   margin-top: 20px;
 `
@@ -63,7 +63,7 @@ export const Info = styled.View`
 `
 
 export const Title = styled.Text.attrs({
-  numberOfLines: 1,
+  numberOfLines: 1
 })`
   font-size: 15px;
   font-weight: bold;

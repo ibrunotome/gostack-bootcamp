@@ -17,27 +17,27 @@ import {
   Name,
   Bio,
   ProfileButton,
-  ProfileButtonText,
+  ProfileButtonText
 } from './styles'
 
 export default class Main extends Component {
   static navigationOptions = {
-    title: 'Usuários',
+    title: 'Usuários'
   }
 
   static propTypes = {
     navigation: PropTypes.shape({
-      navigate: PropTypes.func,
-    }).isRequired,
+      navigate: PropTypes.func
+    }).isRequired
   }
 
   state = {
     newUser: '',
     users: [],
-    loading: false,
+    loading: false
   }
 
-  async componentDidMount() {
+  async componentDidMount () {
     const users = await AsyncStorage.getItem('users')
 
     if (users) {
@@ -45,7 +45,7 @@ export default class Main extends Component {
     }
   }
 
-  async componentDidUpdate(_, prevState) {
+  async componentDidUpdate (_, prevState) {
     const { users } = this.state
     if (prevState.users !== this.state.users) {
       AsyncStorage.setItem('users', JSON.stringify(users))
@@ -62,13 +62,13 @@ export default class Main extends Component {
       name: response.data.name,
       login: response.data.login,
       bio: response.data.bio,
-      avatar: response.data.avatar_url,
+      avatar: response.data.avatar_url
     }
 
     this.setState({
       users: [...users, data],
       newUser: '',
-      loading: false,
+      loading: false
     })
 
     Keyboard.dismiss()
@@ -80,7 +80,7 @@ export default class Main extends Component {
     navigation.navigate('User', { user })
   }
 
-  render() {
+  render () {
     const { users, newUser, loading } = this.state
 
     return (
