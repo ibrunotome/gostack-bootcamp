@@ -13,26 +13,26 @@ import {
   Info,
   Title,
   Author,
-  ActivityIndicator,
+  ActivityIndicator
 } from './styles'
 
 export default class User extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.getParam('user').name,
+    title: navigation.getParam('user').name
   })
 
   static propTypes = {
     navigation: PropTypes.shape({
       getParam: PropTypes.func,
-      navigate: PropTypes.func,
-    }).isRequired,
+      navigate: PropTypes.func
+    }).isRequired
   }
 
   state = {
     stars: [],
     page: 1,
     loading: true,
-    refreshing: false,
+    refreshing: false
   }
 
   load = async (page = 1) => {
@@ -41,14 +41,14 @@ export default class User extends Component {
     const user = navigation.getParam('user')
 
     const response = await api.get(`/users/${user.login}/starred`, {
-      params: { page },
+      params: { page }
     })
 
     this.setState({
       stars: page > 1 ? [...stars, ...response.data] : response.data,
       page,
       loading: false,
-      refreshing: false,
+      refreshing: false
     })
   }
 
@@ -71,11 +71,11 @@ export default class User extends Component {
     navigation.navigate('Repository', { repository })
   }
 
-  async componentDidMount() {
+  async componentDidMount () {
     this.load()
   }
 
-  render() {
+  render () {
     const { navigation } = this.props
     const { stars, loading, refreshing } = this.state
     const user = navigation.getParam('user')

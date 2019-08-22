@@ -14,7 +14,7 @@ export const Form = styled.View`
 `
 
 export const Input = styled.TextInput.attrs({
-  placeholderTextColor: '#999',
+  placeholderTextColor: '#999'
 })`
   flex: 1;
   height: 40px;
@@ -34,7 +34,7 @@ export const SubmitButton = styled(RectButton)`
   opacity: ${props => (props.loading ? 0.7 : 1)};
 `
 export const List = styled.FlatList.attrs({
-  showsVerticalScrollIndicator: false,
+  showsVerticalScrollIndicator: false
 })`
   margin-top: 20px;
 `
@@ -58,7 +58,7 @@ export const Name = styled.Text`
 `
 
 export const Bio = styled.Text.attrs({
-  numberOfLines: 2,
+  numberOfLines: 2
 })`
   font-size: 13px;
   line-height: 18px;

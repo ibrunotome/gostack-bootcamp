@@ -37,7 +37,7 @@ export const Bio = styled.Text`
 `
 
 export const Stars = styled.FlatList.attrs({
-  showsVerticalScrollIndicator: false,
+  showsVerticalScrollIndicator: false
 })`
   margin-top: 20px;
 `
@@ -64,7 +64,7 @@ export const Info = styled.View`
 `
 
 export const Title = styled.Text.attrs({
-  numberOfLines: 1,
+  numberOfLines: 1
 })`
   font-size: 15px;
   font-weight: bold;
@@ -78,7 +78,7 @@ export const Author = styled.Text`
 `
 
 export const ActivityIndicator = styled.ActivityIndicator.attrs(props => ({
-  animating: props.loading,
+  animating: props.loading
 }))`
   margin-top: 20px;
 `
