@@ -8,8 +8,8 @@
     "queue": "nodemon src/queue.js",
     "build": "sucrase ./src -d ./dist --transforms imports",
     "start": "node dist/server.js",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix src/"
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix src"
   },
   "husky": {
     "hooks": {

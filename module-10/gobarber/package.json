@@ -6,8 +6,8 @@
     "start": "react-native start",
     "test": "jest",
     "postinstall": "jetify",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix src/"
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix src"
   },
   "husky": {
     "hooks": {

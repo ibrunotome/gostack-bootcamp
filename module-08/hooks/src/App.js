@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react'
 
-function App() {
+function App () {
   const [tech, setTech] = useState(['ReactJS', 'React Native'])
   const [newTech, setNewTech] = useState('')
 

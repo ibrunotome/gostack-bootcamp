@@ -7,25 +7,25 @@ import * as CartActions from '../../store/modules/cart/actions'
 
 import { ProductList } from './styles'
 
-export default function Home() {
+export default function Home () {
   const [products, setProducts] = useState([])
   const amount = useSelector(state =>
     state.cart.reduce((sumAmount, product) => {
       sumAmount[product.id] = product.amount
 
       return sumAmount
-    }, {}),
+    }, {})
   )
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    async function loadProducts() {
+    async function loadProducts () {
       const response = await api.get('products')
 
       const data = response.data.map(product => ({
         ...product,
-        priceFormatted: formatPrice(product.price),
+        priceFormatted: formatPrice(product.price)
       }))
 
       setProducts(data)
@@ -34,7 +34,7 @@ export default function Home() {
     loadProducts()
   }, [])
 
-  function handleAddProduct(id) {
+  function handleAddProduct (id) {
     dispatch(CartActions.addToCartRequest(id))
   }
 

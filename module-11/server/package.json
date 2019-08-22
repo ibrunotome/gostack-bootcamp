@@ -9,8 +9,8 @@
     "pretest": "NODE_ENV=test sequelize db:migrate",
     "test": "NODE_ENV=test jest",
     "posttest": "NODE_ENV=test sequelize db:migrate:undo:all",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix src/"
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix src"
   },
   "husky": {
     "hooks": {
