@@ -23,15 +23,15 @@ import {
   Order,
   OrderText,
   EmptyContainer,
-  EmptyText,
+  EmptyText
 } from './styles'
 
-function Cart({ products, total, removeFromCart, updateAmountRequest }) {
-  function decrement(product) {
+function Cart ({ products, total, removeFromCart, updateAmountRequest }) {
+  function decrement (product) {
     updateAmountRequest(product.id, product.amount - 1)
   }
 
-  function increment(product) {
+  function increment (product) {
     updateAmountRequest(product.id, product.amount + 1)
   }
 
@@ -87,14 +87,14 @@ const mapStateToProps = state => ({
   products: state.cart.map(product => ({
     ...product,
     subtotal: formatPrice(product.price * product.amount),
-    priceFormatted: formatPrice(product.price),
+    priceFormatted: formatPrice(product.price)
   })),
-  total: formatPrice(state.cart.reduce((total, product) => total + product.price * product.amount, 0)),
+  total: formatPrice(state.cart.reduce((total, product) => total + product.price * product.amount, 0))
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators(CartActions, dispatch)
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Cart)

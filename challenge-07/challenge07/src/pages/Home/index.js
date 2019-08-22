@@ -14,7 +14,7 @@ import {
   AddButton,
   ProductAmount,
   ProductAmountText,
-  AddButtonText,
+  AddButtonText
 } from './styles'
 
 import api from '../../services/api'
@@ -25,10 +25,10 @@ Icon.loadFont()
 
 class Home extends Component {
   state = {
-    products: [],
+    products: []
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.getProducts()
   }
 
@@ -37,7 +37,7 @@ class Home extends Component {
 
     const data = response.data.map(product => ({
       ...product,
-      priceFormatted: formatPrice(product.price),
+      priceFormatted: formatPrice(product.price)
     }))
 
     this.setState({ products: data })
@@ -68,7 +68,7 @@ class Home extends Component {
     )
   }
 
-  render() {
+  render () {
     const { products } = this.state
 
     return (
@@ -98,12 +98,12 @@ const mapStateToProps = state => ({
   amount: state.cart.reduce((amount, product) => {
     amount[product.id] = product.amount
     return amount
-  }, {}),
+  }, {})
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators(CartActions, dispatch)
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Home)

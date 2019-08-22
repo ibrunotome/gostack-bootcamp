@@ -5,13 +5,13 @@ import { ItemCount } from '../styles'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 Icon.loadFont()
 
-function Badge({ amountInCart }) {
+function Badge ({ amountInCart }) {
   return <ItemCount>{amountInCart || 0}</ItemCount>
 }
 
 export default connect(
   state => ({
-    amountInCart: state.cart.length,
+    amountInCart: state.cart.length
   }),
-  null,
+  null
 )(Badge)

@@ -17,22 +17,22 @@ const Routes = createAppContainer(
       transitionConfig: () => flipY(1000),
       defaultNavigationOptions: navigation => ({
         headerStyle: {
-          backgroundColor: '#141419',
+          backgroundColor: '#141419'
         },
         headerTitle: <Logo />,
         headerTintColor: '#fff',
         headerTitleStyle: {
-          fontWeight: 'bold',
+          fontWeight: 'bold'
         },
         headerRight: (
           <BasketContainer onPress={() => navigation.navigation.navigate('Cart')}>
             <Icon name="shopping-basket" color="#FFF" size={24} />
             <Badge />
           </BasketContainer>
-        ),
-      }),
-    },
-  ),
+        )
+      })
+    }
+  )
 )
 
 export default Routes
