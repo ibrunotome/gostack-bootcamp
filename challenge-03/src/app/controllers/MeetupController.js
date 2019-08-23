@@ -5,29 +5,27 @@ import Meetup from '../models/Meetup'
 import User from '../models/User'
 
 class MeetupController {
-  constructor() {}
-
-  async organizingMeetups(req, res) {
+  async organizingMeetups (req, res) {
     const where = {
-      user_id: req.userId,
+      user_id: req.userId
     }
 
-    return await meetupList(req, res, where)
+    return meetupList(req, res, where)
   }
 
-  async index(req, res) {
+  async index (req, res) {
     const where = {}
 
-    return await meetupList(req, res, where)
+    return meetupList(req, res, where)
   }
 
-  async store(req, res) {
+  async store (req, res) {
     const schema = Yup.object().shape({
       title: Yup.string().required(),
       file_id: Yup.string().required(),
       description: Yup.string().required(),
       location: Yup.string().required(),
-      date: Yup.date().required(),
+      date: Yup.date().required()
     })
 
     try {
@@ -40,28 +38,28 @@ class MeetupController {
       return res.status(400).json({ error: 'You cannot use a past date to create a new meetup' })
     }
 
-    const user_id = req.userId
-    const { title, description, location, date, file_id } = req.body
+    const userId = req.userId
+    const { title, description, location, date, fileId } = req.body
 
     const meetup = await Meetup.create({
       title,
       description,
       location,
       date,
-      file_id,
-      user_id,
+      file_id: fileId,
+      user_id: userId
     })
 
     return res.json(meetup)
   }
 
-  async update(req, res) {
+  async update (req, res) {
     const schema = Yup.object().shape({
       title: Yup.string(),
       file_id: Yup.string(),
       description: Yup.string(),
       location: Yup.string(),
-      date: Yup.date(),
+      date: Yup.date()
     })
 
     try {
@@ -70,10 +68,10 @@ class MeetupController {
       return res.status(422).json({ errors: error.errors })
     }
 
-    const user_id = req.userId
+    const userId = req.userId
     const meetup = await Meetup.findByPk(req.params.id)
 
-    if (meetup.user_id !== user_id) {
+    if (meetup.user_id !== userId) {
       return res.status(403).json({ error: 'Forbidden' })
     }
 
@@ -90,15 +88,15 @@ class MeetupController {
     return res.json(meetup)
   }
 
-  async delete(req, res) {
-    const user_id = req.userId
+  async delete (req, res) {
+    const userId = req.userId
     const meetup = await Meetup.findByPk(req.params.id)
 
     if (!meetup) {
       return res.status(404).json({ error: 'Meetup not found' })
     }
 
-    if (meetup.user_id !== user_id) {
+    if (meetup.user_id !== userId) {
       return res.status(403).json({ error: 'Forbidden' })
     }
 
@@ -112,14 +110,14 @@ class MeetupController {
   }
 }
 
-async function meetupList(req, res, where) {
+async function meetupList (req, res, where) {
   const page = req.query.page || 1
 
   if (req.query.date) {
     const searchDate = parseISO(req.query.date)
 
     where.date = {
-      [Op.between]: [startOfDay(searchDate), endOfDay(searchDate)],
+      [Op.between]: [startOfDay(searchDate), endOfDay(searchDate)]
     }
   }
 
@@ -127,7 +125,7 @@ async function meetupList(req, res, where) {
     where,
     include: [User],
     limit: 10,
-    offset: 10 * page - 10,
+    offset: 10 * page - 10
   })
 
   return res.json(meetups)

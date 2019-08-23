@@ -6,28 +6,28 @@ module.exports = {
       id: {
         type: Sequelize.UUID,
         allowNull: false,
-        primaryKey: true,
+        primaryKey: true
       },
       path: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       name: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.DATE
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATE,
-      },
+        type: Sequelize.DATE
+      }
     })
   },
 
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('files')
-  },
+  }
 }

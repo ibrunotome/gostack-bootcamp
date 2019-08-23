@@ -6,34 +6,34 @@ module.exports = {
       id: {
         type: Sequelize.UUID,
         allowNull: false,
-        primaryKey: true,
+        primaryKey: true
       },
       meetup_id: {
         type: Sequelize.UUID,
         references: { model: 'meetups', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        allowNull: false,
+        allowNull: false
       },
       user_id: {
         type: Sequelize.UUID,
         references: { model: 'users', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        allowNull: false,
+        allowNull: false
       },
       created_at: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: false
       },
       updated_at: {
         type: Sequelize.DATE,
-        allowNull: false,
-      },
+        allowNull: false
+      }
     })
   },
 
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('subscriptions')
-  },
+  }
 }

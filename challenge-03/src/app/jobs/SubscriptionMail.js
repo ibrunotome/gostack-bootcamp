@@ -1,11 +1,11 @@
 import Mail from '../../lib/Mail'
 
 class SubscriptionMail {
-  get key() {
+  get key () {
     return 'SubscriptionMail'
   }
 
-  async handle({ data }) {
+  async handle ({ data }) {
     const { meetup, user } = data
 
     await Mail.sendMail({
@@ -16,8 +16,8 @@ class SubscriptionMail {
         organizer: meetup.User.name,
         meetup: meetup.title,
         user: user.name,
-        email: user.email,
-      },
+        email: user.email
+      }
     })
   }
 }

@@ -3,7 +3,7 @@ import Model from './Model'
 import Sequelize from 'sequelize'
 
 class Meetup extends Model {
-  static init(sequelize) {
+  static init (sequelize) {
     super.init(
       {
         title: Sequelize.STRING,
@@ -14,20 +14,20 @@ class Meetup extends Model {
         user_id: Sequelize.UUID,
         past: {
           type: Sequelize.VIRTUAL,
-          get() {
+          get () {
             return isBefore(this.date, new Date())
-          },
-        },
+          }
+        }
       },
       {
-        sequelize,
-      },
+        sequelize
+      }
     )
 
     return this
   }
 
-  static associate(models) {
+  static associate (models) {
     this.belongsTo(models.File, { foreignKey: 'file_id' })
     this.belongsTo(models.User, { foreignKey: 'user_id' })
     this.hasMany(models.Subscription, { foreignKey: 'meetup_id' })

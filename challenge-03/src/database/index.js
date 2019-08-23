@@ -10,18 +10,18 @@ import databaseConfig from '../config/database'
 const models = [User, File, Meetup, Subscription]
 
 class Database {
-  constructor() {
+  constructor () {
     this.init()
     this.associate()
   }
 
-  init() {
+  init () {
     this.connection = new Sequelize(databaseConfig)
 
     models.map(model => model.init(this.connection))
   }
 
-  associate() {
+  associate () {
     models.forEach(model => {
       if (model.associate) {
         model.associate(this.connection.models)

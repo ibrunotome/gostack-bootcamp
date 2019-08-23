@@ -6,50 +6,50 @@ module.exports = {
       id: {
         type: Sequelize.UUID,
         allowNull: false,
-        primaryKey: true,
+        primaryKey: true
       },
       title: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
       description: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
       location: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
       date: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: false
       },
       created_at: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: false
       },
       updated_at: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: false
       },
       file_id: {
         type: Sequelize.UUID,
         references: { model: 'files', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        allowNull: false,
+        allowNull: false
       },
       user_id: {
         type: Sequelize.UUID,
         references: { model: 'users', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        allowNull: false,
-      },
+        allowNull: false
+      }
     })
   },
 
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('meetups')
-  },
+  }
 }

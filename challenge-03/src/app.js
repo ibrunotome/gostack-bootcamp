@@ -11,7 +11,7 @@ import sentryConfig from './config/sentry'
 import './database'
 
 class App {
-  constructor() {
+  constructor () {
     this.server = express()
 
     Sentry.init(sentryConfig)
@@ -21,18 +21,18 @@ class App {
     this.exceptionHandler()
   }
 
-  middlewares() {
+  middlewares () {
     this.server.use(Sentry.Handlers.requestHandler())
     this.server.use(express.json())
     this.server.use('/files', express.static(path.resolve(__dirname, '..', 'tmp', 'uploads')))
   }
 
-  routes() {
+  routes () {
     this.server.use(routes)
     this.server.use(Sentry.Handlers.errorHandler())
   }
 
-  exceptionHandler() {
+  exceptionHandler () {
     this.server.use(async (err, req, res, next) => {
       if (process.env.NODE_ENV === 'development') {
         const errors = await new Youch(err, req).toJSON()

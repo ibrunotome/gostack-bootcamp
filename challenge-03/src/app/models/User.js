@@ -3,17 +3,17 @@ import Model from './Model'
 import bcrypt from 'bcryptjs'
 
 class User extends Model {
-  static init(sequelize) {
+  static init (sequelize) {
     super.init(
       {
         name: Sequelize.STRING,
         email: Sequelize.STRING,
         password: Sequelize.VIRTUAL,
-        password_hash: Sequelize.STRING,
+        password_hash: Sequelize.STRING
       },
       {
-        sequelize,
-      },
+        sequelize
+      }
     )
 
     this.addHook('beforeSave', async user => {
@@ -25,12 +25,12 @@ class User extends Model {
     return this
   }
 
-  static associate(models) {
+  static associate (models) {
     this.hasMany(models.Meetup)
     this.hasMany(models.Subscription)
   }
 
-  checkPassword(password) {
+  checkPassword (password) {
     return bcrypt.compare(password, this.password_hash)
   }
 }

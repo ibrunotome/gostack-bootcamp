@@ -6,34 +6,34 @@ import Queue from '../../lib/Queue'
 import SubscriptionMail from '../jobs/SubscriptionMail'
 
 class SubscriptionController {
-  async index(req, res) {
+  async index (req, res) {
     const subscriptions = await Subscription.findAll({
       where: {
-        user_id: req.userId,
+        user_id: req.userId
       },
       include: [
         {
           model: Meetup,
           where: {
             date: {
-              [Op.gt]: new Date(),
-            },
+              [Op.gt]: new Date()
+            }
           },
-          required: true,
-        },
+          required: true
+        }
       ],
-      order: [[Meetup, 'date']],
+      order: [[Meetup, 'date']]
     })
 
     return res.json(subscriptions)
   }
 
-  async store(req, res) {
+  async store (req, res) {
     let meetup = {}
 
     try {
       meetup = await Meetup.findByPk(req.params.meetupId, {
-        include: [User],
+        include: [User]
       })
     } catch (error) {
       console.error(error)
@@ -50,17 +50,17 @@ class SubscriptionController {
 
     const checkDate = await Subscription.findOne({
       where: {
-        user_id: req.userId,
+        user_id: req.userId
       },
       include: [
         {
           model: Meetup,
           required: true,
           where: {
-            date: meetup.date,
-          },
-        },
-      ],
+            date: meetup.date
+          }
+        }
+      ]
     })
 
     if (checkDate) {
@@ -69,14 +69,14 @@ class SubscriptionController {
 
     const subscription = await Subscription.create({
       user_id: req.userId,
-      meetup_id: meetup.id,
+      meetup_id: meetup.id
     })
 
     const user = await User.findByPk(req.userId)
 
     await Queue.add(SubscriptionMail.key, {
       meetup,
-      user,
+      user
     })
 
     return res.json(subscription)

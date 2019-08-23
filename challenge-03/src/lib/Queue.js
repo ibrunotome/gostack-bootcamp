@@ -5,27 +5,27 @@ import redisConfig from '../config/redis'
 const jobs = [SubscriptionMail]
 
 class Queue {
-  constructor() {
+  constructor () {
     this.queues = {}
     this.init()
   }
 
-  init() {
+  init () {
     jobs.forEach(({ key, handle }) => {
       this.queues[key] = {
         bee: new Bee(key, {
-          redis: redisConfig,
+          redis: redisConfig
         }),
-        handle,
+        handle
       }
     })
   }
 
-  add(queue, job) {
+  add (queue, job) {
     return this.queues[queue].bee.createJob(job).save()
   }
 
-  processQueue() {
+  processQueue () {
     jobs.forEach(job => {
       const { bee, handle } = this.queues[job.key]
 
@@ -33,7 +33,7 @@ class Queue {
     })
   }
 
-  handleFailure(job, err) {
+  handleFailure (job, err) {
     console.log(`Queue ${job.queue.name}: FAILED`, err)
   }
 }
