@@ -2,6 +2,7 @@ import { parseISO, startOfDay, endOfDay } from 'date-fns'
 import { Op } from 'sequelize'
 
 import Appointment from '../models/Appointment'
+import File from '../models/File'
 import User from '../models/User'
 
 class ScheduleController {
@@ -13,6 +14,7 @@ class ScheduleController {
     }
 
     const { date } = req.query
+
     const parseDate = parseISO(date)
     const appointments = await Appointment.findAll({
       where: {
@@ -26,7 +28,14 @@ class ScheduleController {
         {
           model: User,
           as: 'user',
-          attributes: ['name']
+          attributes: ['name'],
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+              attributes: ['id', 'path', 'url']
+            }
+          ]
         }
       ],
       order: ['date']

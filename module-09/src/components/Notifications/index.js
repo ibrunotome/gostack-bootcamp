@@ -10,7 +10,8 @@ import {
   Badge,
   NotificationList,
   Scroll,
-  Notification
+  Notification,
+  Text
 } from './styles'
 
 export default function Notifications () {
@@ -65,6 +66,8 @@ export default function Notifications () {
 
       <NotificationList visible={visible}>
         <Scroll>
+          {notifications.lenght > 0 ? (
+          <>
           {notifications.map(notification => (
             <Notification key={notification._id} unread={!notification.read}>
               <p>{notification.content}</p>
@@ -78,7 +81,7 @@ export default function Notifications () {
                 </button>
               )}
             </Notification>
-          ))}
+          ))}) </>) : <Text>Não há notificações</Text>}
         </Scroll>
       </NotificationList>
     </Container>

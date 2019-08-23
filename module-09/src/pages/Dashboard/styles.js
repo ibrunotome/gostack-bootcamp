@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const Container = styled.div`
   max-width: 600px;
   margin: 50px auto;
-
   display: flex;
   flex-direction: column;
 
@@ -36,6 +35,7 @@ export const Time = styled.li`
   padding: 20px;
   border-radius: 4px;
   background: #fff;
+  position: relative;
 
   opacity: ${props => (props.past ? 0.6 : 1)};
 
@@ -49,6 +49,19 @@ export const Time = styled.li`
   span {
     display: block;
     margin-top: 3px;
-    color: ${props => (props.available ? '#999' : '#666')};
+    color: ${props => (props.available ? '#999' : '#000')};
+  }
+`
+
+export const AvatarWrapper = styled.div`
+  font-weight: bold;
+
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    top: 15px;
+    right: 15px;
   }
 `

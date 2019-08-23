@@ -17,7 +17,7 @@ export function * signIn ({ payload }) {
     const { token, user } = response.data
 
     if (!user.provider) {
-      toast.error('Usuário não é prestador')
+      toast.error('Olá cliente, use o aplicativo para celular')
       return
     }
 
@@ -27,7 +27,11 @@ export function * signIn ({ payload }) {
 
     history.push('/dashboard')
   } catch (error) {
-    toast.error('Falha na autenticação, verifique seus dados')
+    if (error.response.status === 429) {
+      toast.error('Você realizou muitas tentativas de login em pouco tempo... aguarde um minuto para tentar novamente')
+    } else {
+      toast.error('Falha na autenticação, verifique seus dados')
+    }
     yield put(signFailure())
   }
 }
@@ -42,6 +46,8 @@ export function * signUp ({ payload }) {
       password,
       provider: true
     })
+
+    toast.success('Conta criada com sucesso. Faça o login para continuar')
 
     history.push('/')
   } catch (error) {

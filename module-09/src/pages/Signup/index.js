@@ -27,11 +27,11 @@ export default function SignUp () {
 
   return (
     <>
-      <img src={logo} alt="GoBarber" />
+      <img src={logo} alt="GoBarber" height={100} />
 
       <Form schema={schema} onSubmit={handleSubmit}>
-        <Input name="name" type="text" placeholder="Nome completo" />
         <Input name="email" type="email" placeholder="Seu e-mail" />
+        <Input name="name" type="text" placeholder="Nome completo" />
         <Input name="password" type="password" placeholder="Sua senha" />
 
         <button type="submit">Criar conta</button>

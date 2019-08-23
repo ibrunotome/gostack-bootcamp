@@ -25,7 +25,8 @@ class UserController {
   }
 
   async update (req, res) {
-    const { email, oldPassword } = req.body
+    console.log(req.body)
+    const { email, oldPassword, avatarId } = req.body
 
     const user = await User.findByPk(req.userId)
 
@@ -41,7 +42,7 @@ class UserController {
       return res.status(401).json({ error: 'Password does not match' })
     }
 
-    await user.update(req.body)
+    await user.update({ ...req.body, avatar_id: avatarId })
 
     const { id, name, avatar } = await User.findByPk(req.userId, {
       include: [

@@ -6,6 +6,10 @@ export const Container = styled.div`
   position: relative;
 `
 
+export const Text = styled.div`
+  color: #fff;
+`
+
 export const Badge = styled.button`
   background: none;
   border: 0;

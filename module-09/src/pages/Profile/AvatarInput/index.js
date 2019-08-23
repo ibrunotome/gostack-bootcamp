@@ -3,6 +3,7 @@ import { useField } from '@rocketseat/unform'
 import api from '~/services/api'
 
 import { Container } from './styles'
+import avatar from '~/assets/avatar.svg'
 
 export default function AvatarInput () {
   const { defaultValue, registerField } = useField('avatar')
@@ -26,7 +27,6 @@ export default function AvatarInput () {
     data.append('file', e.target.files[0])
 
     const response = await api.post('files', data)
-
     const { id, url } = response.data
 
     setFile(id)
@@ -37,9 +37,7 @@ export default function AvatarInput () {
     <Container>
       <label htmlFor="avatar">
         <img
-          src={
-            preview || 'https://api.adorable.io/avatars/50/abott@adorable.png'
-          }
+          src={preview || avatar}
           alt="Avatar"
         />
 

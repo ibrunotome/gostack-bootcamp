@@ -15,13 +15,13 @@ import pt from 'date-fns/locale/pt'
 import api from '~/services/api'
 
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
-
-import { Container, Time } from './styles'
+import { Container, Time, AvatarWrapper } from './styles'
+import avatar from '~/assets/avatar.svg'
 
 const range = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
 export default function Dashboard () {
-  const [schedule, setSchedule] = useState([])
+  const [schedules, setSchedules] = useState([])
   const [date, setDate] = useState(new Date())
 
   const dateFormatted = useMemo(
@@ -50,11 +50,11 @@ export default function Dashboard () {
         }
       })
 
-      setSchedule(data)
+      setSchedules(data)
     }
 
     loadSchedule()
-  }, [])
+  }, [date])
 
   function handlePrevDay () {
     setDate(subDays(date, 1))
@@ -77,12 +77,15 @@ export default function Dashboard () {
       </header>
 
       <ul>
-        {schedule.map(time => (
+        {schedules.map(time => (
           <Time key={time.time} past={time.past} available={!time.appointment}>
             <strong>{time.time}</strong>
-            <span>
-              {time.appointment ? time.appointment.user.name : 'Em aberto'}
-            </span>
+            { time.appointment ? (
+              <AvatarWrapper>
+                <span>{time.appointment.user.name}</span>
+                <img src={time.appointment.user.avatar ? time.appointment.user.avatar.url : avatar } alt="Avatar" />
+              </AvatarWrapper>
+            ) : <span>Em aberto</span>}
           </Time>
         ))}
       </ul>
