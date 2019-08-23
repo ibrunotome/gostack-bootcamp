@@ -2,7 +2,7 @@ const { Model: SequelizeModel } = require('sequelize')
 const uuid = require('uuid/v4')
 
 class Model extends SequelizeModel {
-  static init(defines, sequelize) {
+  static init (defines, sequelize) {
     super.init(defines, sequelize)
 
     this.addHook('beforeCreate', model => {

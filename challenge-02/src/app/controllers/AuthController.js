@@ -4,12 +4,12 @@ import User from '../models/User'
 import authConfig from '../../config/auth'
 
 class AuthController {
-  async login(req, res) {
+  async login (req, res) {
     const schema = Yup.object().shape({
       email: Yup.string()
         .email()
         .required(),
-      password: Yup.string().required(),
+      password: Yup.string().required()
     })
 
     if (!(await schema.isValid(req.body))) {
@@ -34,11 +34,11 @@ class AuthController {
       user: {
         id,
         name,
-        email,
+        email
       },
       token: jwt.sign({ id }, authConfig.secret, {
-        expiresIn: authConfig.expiresIn,
-      }),
+        expiresIn: authConfig.expiresIn
+      })
     })
   }
 }

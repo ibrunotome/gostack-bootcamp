@@ -1,4 +1,4 @@
 export default {
   secret: 'metaapsecret',
-  expiresIn: '1d',
+  expiresIn: '1d'
 }
