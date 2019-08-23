@@ -10,9 +10,9 @@ export default class Repository extends Component {
   static propTypes = {
     match: PropTypes.shape({
       params: PropTypes.shape({
-        repository: PropTypes.string,
-      }),
-    }).isRequired,
+        repository: PropTypes.string
+      })
+    }).isRequired
   }
 
   state = {
@@ -22,13 +22,13 @@ export default class Repository extends Component {
     filters: [
       { state: 'all', label: 'Todas', active: true },
       { state: 'open', label: 'Abertas', active: false },
-      { state: 'closed', label: 'Fechadas', active: false },
+      { state: 'closed', label: 'Fechadas', active: false }
     ],
     filterChoosed: 0,
-    page: 1,
+    page: 1
   }
 
-  async componentDidMount() {
+  async componentDidMount () {
     const { match } = this.props
     const { filters } = this.state
 
@@ -39,15 +39,15 @@ export default class Repository extends Component {
       api.get(`/repos/${repoName}/issues`, {
         params: {
           state: filters.find(filter => filter.active).state,
-          per_page: 5,
-        },
-      }),
+          per_page: 5
+        }
+      })
     ])
 
     this.setState({
       repository: repository.data,
       issues: issues.data,
-      loading: false,
+      loading: false
     })
   }
 
@@ -61,8 +61,8 @@ export default class Repository extends Component {
       params: {
         state: filters[filterChoosed].state,
         per_page: 5,
-        page,
-      },
+        page
+      }
     })
 
     this.setState({ issues: response.data })
@@ -81,7 +81,7 @@ export default class Repository extends Component {
     this.loadIssues()
   }
 
-  render() {
+  render () {
     const { repository, issues, filters, filterChoosed, loading, page } = this.state
 
     if (loading) {
