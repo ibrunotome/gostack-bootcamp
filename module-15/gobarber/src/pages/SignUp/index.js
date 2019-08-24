@@ -32,7 +32,7 @@ export default function SignUp ({ navigation }) {
             icon="person-outline"
             autoCorrect={false}
             autoCapitalize="none"
-            placeholder="Digite seu nome completo"
+            placeholder="Seu nome"
             returnKeyType="next"
             onSubmitEditing={() => emailRef.current.focus()}
             value={name}
@@ -44,7 +44,7 @@ export default function SignUp ({ navigation }) {
             keyboardType="email-address"
             autoCorrect={false}
             autoCapitalize="none"
-            placeholder="Digite seu email"
+            placeholder="Seu email"
             ref={emailRef}
             returnKeyType="next"
             onSubmitEditing={() => passwordRef.current.focus()}
@@ -55,7 +55,7 @@ export default function SignUp ({ navigation }) {
           <FormInput
             icon="lock-outline"
             secureTextEntry
-            placeholder="Sua senha secreta"
+            placeholder="Sua senha"
             ref={passwordRef}
             returnKeyType="send"
             onSubmitEditing={handleSubmit}
