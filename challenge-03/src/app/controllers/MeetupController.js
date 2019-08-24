@@ -2,6 +2,7 @@ import * as Yup from 'yup'
 import { Op } from 'sequelize'
 import { isBefore, startOfDay, endOfDay, parseISO } from 'date-fns'
 import Meetup from '../models/Meetup'
+import File from '../models/File'
 import User from '../models/User'
 
 class MeetupController {
@@ -123,7 +124,18 @@ async function meetupList (req, res, where) {
 
   const meetups = await Meetup.findAll({
     where,
-    include: [User],
+    include: [
+      {
+        model: User,
+        as: 'user',
+        attributes: ['name', 'email']
+      },
+      {
+        model: File,
+        as: 'cover',
+        attributes: ['name', 'path']
+      }
+    ],
     limit: 10,
     offset: 10 * page - 10
   })
