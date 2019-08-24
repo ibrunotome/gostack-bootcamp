@@ -8,4 +8,4 @@
 
 ## How to run
 
-With the backedn running, just run `yarn start` on the root of this project.
+With the backend running, just run `yarn start` on the root of this project.
