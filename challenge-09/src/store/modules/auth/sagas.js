@@ -38,8 +38,7 @@ export function * signUp ({ payload }) {
     yield call(api.post, 'users', {
       name,
       email,
-      password,
-      provider: true
+      password
     })
 
     toast.success('Conta criada com sucesso. Faça o login para continuar')
