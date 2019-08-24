@@ -9,17 +9,12 @@ export function * signIn ({ payload }) {
   try {
     const { email, password } = payload
 
-    const response = yield call(api.post, 'auth', {
+    const response = yield call(api.post, 'login', {
       email,
       password
     })
 
     const { token, user } = response.data
-
-    if (!user.provider) {
-      toast.error('Olá cliente, use o aplicativo para celular')
-      return
-    }
 
     api.defaults.headers.Authorization = `Bearer ${token}`
 
