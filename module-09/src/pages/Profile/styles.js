@@ -11,7 +11,7 @@ export const Container = styled.div`
     margin-top: 30px;
 
     input {
-      background: rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.1);
       border: 0;
       border-radius: 4px;
       height: 44px;
@@ -42,7 +42,7 @@ export const Container = styled.div`
   button {
     margin: 5px 0 0;
     height: 44px;
-    background: #3b9eff;
+    background: #7159ca;
     font-weight: bold;
     color: #fff;
     border: 0;
@@ -51,7 +51,7 @@ export const Container = styled.div`
     transition: background 0.2s;
 
     &:hover {
-      background: ${darken(0.03, '#3b9eff')};
+      background: ${darken(0.03, '#7159ca')};
     }
   }
 
