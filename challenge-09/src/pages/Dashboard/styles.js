@@ -56,3 +56,9 @@ export const MeetupActions = styled.div`
   justify-content: space-between;
   align-items: center;
 `
+
+export const NoMeetups = styled.div`
+  text-align: center;
+  margin-top: 10px;
+  color: #fff;
+`

@@ -8,12 +8,24 @@ import { Container, Content, Cover, Description, DescriptionDetails, Header, Hea
 import { Button } from '~/components/Button'
 import api from '~/services/api'
 
-export default function Details ({ match }) {
+export default function Details ({ history, match }) {
   const [meetup, setMeetup] = useState([])
   const meetupId = match.params.id
 
   function dateFormatted (date) {
     return date ? format(parseISO(date), "dd 'de' MMMM yyyy', às' HH:mm'h'", { locale: pt }) : null
+  }
+
+  async function cancelMeetup () {
+    try {
+      if (window.confirm('Deseja realmente apagar este meetup?')) {
+        await api.delete(`meetups/${meetupId}`)
+        toast.success('O meetup foi apagado')
+        history.push('/dashboard')
+      }
+    } catch (error) {
+      toast.error('Não conseguimos cancelar o meetup')
+    }
   }
 
   useEffect(() => {
@@ -22,8 +34,6 @@ export default function Details ({ match }) {
         const { data } = await api.get(`meetups/${meetupId}`)
 
         setMeetup(data)
-
-        delete data.subscribed
       } catch (error) {
         toast.error('Falha ao carregar meetup')
       }
@@ -43,15 +53,18 @@ export default function Details ({ match }) {
               <MdEdit size={20}/>
               <div>Editar</div>
             </Button>
-            <Button>
+            <Button onClick={() => cancelMeetup()}>
               <MdDeleteForever size={20}/>
-              <div>Cancelar</div>
+              <div>Apagar</div>
             </Button>
           </HeaderButtons>
         </Header>
 
         <Cover>
-          <img src={meetup.cover ? meetup.cover.url : 'https://coverpixs.com/images/items/itm_2013-01-27_11-43-42_2.jpg' } />
+          <img
+            src={meetup.cover ? meetup.cover.url : 'https://coverpixs.com/images/items/itm_2013-01-27_11-43-42_2.jpg' }
+            alt="Cover"
+          />
         </Cover>
 
         <Description>

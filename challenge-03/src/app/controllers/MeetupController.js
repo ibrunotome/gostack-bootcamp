@@ -6,14 +6,6 @@ import File from '../models/File'
 import User from '../models/User'
 
 class MeetupController {
-  async organizingMeetups (req, res) {
-    const where = {
-      user_id: req.userId
-    }
-
-    return meetupList(req, res, where)
-  }
-
   async index (req, res) {
     const where = {}
 
@@ -23,7 +15,7 @@ class MeetupController {
   async store (req, res) {
     const schema = Yup.object().shape({
       title: Yup.string().required(),
-      file_id: Yup.string().required(),
+      fileId: Yup.string().required(),
       description: Yup.string().required(),
       location: Yup.string().required(),
       date: Yup.date().required()
@@ -36,11 +28,22 @@ class MeetupController {
     }
 
     if (isBefore(parseISO(req.body.date), new Date())) {
-      return res.status(400).json({ error: 'You cannot use a past date to create a new meetup' })
+      return res.status(400).json({ error: 'Você não pode criar um meetup numa data passada' })
     }
 
     const userId = req.userId
     const { title, description, location, date, fileId } = req.body
+
+    const alreadyExists = await Meetup.findOne({
+      where: {
+        user_id: userId,
+        date: parseISO(date)
+      }
+    })
+
+    if (alreadyExists) {
+      return res.status(400).json({ error: 'Você já possui um meetup agendado para esse horário' })
+    }
 
     const meetup = await Meetup.create({
       title,
@@ -100,11 +103,11 @@ class MeetupController {
     }
 
     if (isBefore(parseISO(req.body.date), new Date())) {
-      return res.status(422).json({ error: 'You cannot use a past date to create a new meetup' })
+      return res.status(422).json({ error: 'Você não pode atualizar o meetup com uma data passada' })
     }
 
     if (meetup.past) {
-      return res.status(422).json({ error: 'You cannot update a past meetup' })
+      return res.status(422).json({ error: 'Você não pode atualizar um meetup que já terminou' })
     }
 
     await meetup.update(req.body)
@@ -131,6 +134,14 @@ class MeetupController {
     await meetup.destroy()
 
     return res.status(204).send()
+  }
+
+  async organizingMeetups (req, res) {
+    const where = {
+      user_id: req.userId
+    }
+
+    return meetupList(req, res, where)
   }
 }
 
