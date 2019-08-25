@@ -15,9 +15,9 @@ export default function Dashboard () {
   useEffect(() => {
     async function loadMeetups () {
       try {
-        const response = await api.get('meetups/organizing')
+        const { data } = await api.get('meetups/organizing')
 
-        setMeetups(response.data)
+        setMeetups(data)
       } catch (error) {
         toast.error('Falha ao carregar meetups')
       }
