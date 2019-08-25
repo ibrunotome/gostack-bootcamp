@@ -1,9 +1,28 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
+import { format, parseISO } from 'date-fns'
+import { pt } from 'date-fns/locale/es'
 import { MdAddCircleOutline, MdChevronRight } from 'react-icons/md'
 import { Container, Content, Header, Meetups, Meetup, MeetupActions } from './styles'
+import api from '~/services/api'
 
 export default function Dashboard () {
+  const [meetups, setMeetups] = useState([])
+
+  useEffect(() => {
+    async function loadMeetups () {
+      const response = await api.get('meetups/organizing')
+
+      setMeetups(response.data)
+    }
+
+    loadMeetups()
+  }, [])
+
+  function dateFormatted (date) {
+    return format(parseISO(date), "dd 'de' MMMM yyyy', às' HH:mm'h'", { locale: pt })
+  }
+
   return (
     <Container>
       <Content>
@@ -17,29 +36,15 @@ export default function Dashboard () {
         </Header>
 
         <Meetups>
-          <Meetup>
-            <strong>Meetup de React Native</strong>
-            <MeetupActions>
-              <span>24 de Junho, às 20h</span>
-              <MdChevronRight size={30} />
-            </MeetupActions>
-          </Meetup>
-
-          <Meetup>
-            <strong>NodeJS Meetup</strong>
-            <MeetupActions>
-              <span>17 de Agosto, às 20h</span>
-              <MdChevronRight size={30} />
-            </MeetupActions>
-          </Meetup>
-
-          <Meetup>
-            <strong>Rocketseat Meetup</strong>
-            <MeetupActions>
-              <span>30 de Agosto, às 20h</span>
-              <MdChevronRight size={30} />
-            </MeetupActions>
-          </Meetup>
+          {meetups.map(meetup => (
+            <Meetup>
+              <strong>{meetup.title}</strong>
+              <MeetupActions>
+                <span>{dateFormatted(meetup.date)}</span>
+                <MdChevronRight size={30} />
+              </MeetupActions>
+            </Meetup>
+          ))}
         </Meetups>
 
       </Content>
