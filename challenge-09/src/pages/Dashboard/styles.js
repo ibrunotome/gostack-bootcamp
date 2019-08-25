@@ -12,7 +12,7 @@ export const Content = styled.div`
   flex-direction: column;
 `
 
-export const TitleWrapper = styled.div`
+export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -38,4 +38,34 @@ export const TitleWrapper = styled.div`
       margin-left: 8px;
     }
   }
+`
+
+export const Meetups = styled.ul`
+  margin-top: 30px;
+  color: #fff;
+`
+
+export const Meetup = styled.li`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 4px;
+  margin-top: 10px;
+
+  strong {
+    font-size: 18px;
+  }
+
+  span {
+    color: #ccc;
+    padding: 0 30px;
+  }
+`
+
+export const MeetupActions = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
