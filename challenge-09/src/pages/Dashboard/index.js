@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 
+import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { format, parseISO } from 'date-fns'
 import { pt } from 'date-fns/locale/es'
 import { MdAddCircleOutline, MdChevronRight } from 'react-icons/md'
 import { Container, Content, Header, Meetups, Meetup, MeetupActions } from './styles'
+import { Button } from '~/components/Button'
 import api from '~/services/api'
 
 export default function Dashboard () {
@@ -11,9 +14,13 @@ export default function Dashboard () {
 
   useEffect(() => {
     async function loadMeetups () {
-      const response = await api.get('meetups/organizing')
+      try {
+        const response = await api.get('meetups/organizing')
 
-      setMeetups(response.data)
+        setMeetups(response.data)
+      } catch (error) {
+        toast.error('Falha ao carregar meetups')
+      }
     }
 
     loadMeetups()
@@ -29,21 +36,23 @@ export default function Dashboard () {
 
         <Header>
           <h1>Meus meetups</h1>
-          <button type="button">
+          <Button>
             <MdAddCircleOutline size={20}/>
             <div>Novo meetup</div>
-          </button>
+          </Button>
         </Header>
 
         <Meetups>
           {meetups.map(meetup => (
-            <Meetup>
-              <strong>{meetup.title}</strong>
-              <MeetupActions>
-                <span>{dateFormatted(meetup.date)}</span>
-                <MdChevronRight size={30} />
-              </MeetupActions>
-            </Meetup>
+            <Link to={`/details/${meetup.id}`}>
+              <Meetup>
+                <strong>{meetup.title}</strong>
+                <MeetupActions>
+                  <span>{dateFormatted(meetup.date)}</span>
+                  <MdChevronRight size={30} />
+                </MeetupActions>
+              </Meetup>
+            </Link>
           ))}
         </Meetups>
 

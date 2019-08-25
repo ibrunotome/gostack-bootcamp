@@ -54,6 +54,29 @@ class MeetupController {
     return res.json(meetup)
   }
 
+  async show (req, res) {
+    const meetup = await Meetup.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['name', 'email']
+        },
+        {
+          model: File,
+          as: 'cover',
+          attributes: ['name', 'path', 'url']
+        }
+      ]
+    })
+
+    if (!meetup) {
+      return res.status(404).json({ error: 'Meetup not found' })
+    }
+
+    return res.status(200).json(meetup)
+  }
+
   async update (req, res) {
     const schema = Yup.object().shape({
       title: Yup.string(),
