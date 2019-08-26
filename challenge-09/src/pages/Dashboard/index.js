@@ -48,7 +48,7 @@ export default function Dashboard () {
           <Meetups>
             {meetups.map(meetup => (
               <Link to={`/details/${meetup.id}`} key={meetup.id}>
-                <Meetup>
+                <Meetup past={meetup.past}>
                   <strong>{meetup.title}</strong>
                   <MeetupActions>
                     <span>{dateFormatted(meetup.date)}</span>

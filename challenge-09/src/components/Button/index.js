@@ -13,6 +13,10 @@ export const Button = styled.button`
   color: #fff;
   font-weight: bold;
   transition: background 0.2s;
+  :disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
 
   &:hover {
     background: ${darken(0.05, '#F94D6A')};

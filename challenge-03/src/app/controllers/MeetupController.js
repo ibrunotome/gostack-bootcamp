@@ -107,7 +107,7 @@ class MeetupController {
     }
 
     if (meetup.past) {
-      return res.status(422).json({ error: 'Você não pode atualizar um meetup que já terminou' })
+      return res.status(422).json({ error: 'Você não pode editar meetups que já terminaram' })
     }
 
     await meetup.update(req.body)
@@ -120,7 +120,7 @@ class MeetupController {
     const meetup = await Meetup.findByPk(req.params.id)
 
     if (!meetup) {
-      return res.status(404).json({ error: 'Meetup not found' })
+      return res.status(404).json({ error: 'Meetup não encontrado' })
     }
 
     if (meetup.user_id !== userId) {
@@ -128,7 +128,7 @@ class MeetupController {
     }
 
     if (meetup.past) {
-      return res.status(400).json({ error: 'You cannot delete past meetups' })
+      return res.status(422).json({ error: 'Você não pode apagar meetups que já terminaram' })
     }
 
     await meetup.destroy()
