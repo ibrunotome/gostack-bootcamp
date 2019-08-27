@@ -1,7 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Form, Input } from '@rocketseat/unform'
-import { Container, Content } from './styles'
+import { MdList } from 'react-icons/md'
+
+import { Container, Content, Header } from './styles'
+import { Button } from '~/components/Button'
 
 import { updateProfileRequest } from '~/store/modules/user/actions'
 
@@ -16,6 +20,16 @@ export default function Profile () {
   return (
     <Container>
       <Content>
+        <Header>
+          <h1>Meu perfil</h1>
+          <Link to="/dashboard">
+            <Button >
+              <MdList size={20}/>
+              <div>Meus meetups</div>
+            </Button>
+          </Link>
+        </Header>
+
         <Form initialData={profile} onSubmit={handleSubmit}>
           <Input name="name" placeholder="Nome completo" />
           <Input name="email" type="email" placeholder="Seu endereço de e-mail" />

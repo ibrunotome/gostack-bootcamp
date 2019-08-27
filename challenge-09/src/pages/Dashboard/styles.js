@@ -43,12 +43,12 @@ export const Meetup = styled.li`
 
   strong {
     font-size: 18px;
-    color: ${props => props.past ? 'rgba(255, 0, 0, 0.4)' : '#ccc'};
+    color: ${props => props.past ? 'rgba(216, 78, 104, 0.6)' : '#ccc'};
   }
 
   span {
     padding: 0 30px;
-    color: ${props => props.past ? 'rgba(255, 0, 0, 0.4)' : '#ccc'};
+    color: ${props => props.past ? 'rgba(216, 78, 104, 0.6)' : '#ccc'};
   }
 `
 

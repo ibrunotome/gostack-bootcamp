@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 
-import { Container, Content, Header } from './styles'
+import { Link } from 'react-router-dom'
 import { Form, Input } from '@rocketseat/unform'
+import { MdList } from 'react-icons/md'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 import 'react-datepicker/dist/react-datepicker.css'
+
+import { Container, Content, Header } from './styles'
+import { Button } from '~/components/Button'
 
 import api from '~/services/api'
 import history from '~/services/history'
@@ -51,6 +55,12 @@ export default function New () {
       <Content>
         <Header>
           <h1>Novo meetup</h1>
+          <Link to="/dashboard">
+            <Button >
+              <MdList size={20}/>
+              <div>Meus meetups</div>
+            </Button>
+          </Link>
         </Header>
 
         <Form schema={schema} onSubmit={handleSubmit}>
@@ -66,23 +76,27 @@ export default function New () {
           <Input
             name="title"
             type="text"
+            autocomplete="off"
             placeholder="Título do Meetup"
           />
 
           <Input
             multiline
             name="description"
+            autocomplete="off"
             placeholder="Descrição completa"
           />
 
           <DatePicker
             name="date"
+            autocomplete="off"
             placeholder="Data"
           />
 
           <Input
             name="location"
             type="text"
+            autocomplete="off"
             placeholder="Localização"
           />
 

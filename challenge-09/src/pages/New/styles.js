@@ -14,7 +14,6 @@ export const Content = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
 
     input {
       background: rgba(0, 0, 0, 0.2);
@@ -48,7 +47,7 @@ export const Content = styled.div`
 
     div#save > button {
       width: 100px;
-      margin: 5px 0 0;
+      margin: 5px 0;
       height: 44px;
       background: #F94D6A;
       font-weight: bold;
