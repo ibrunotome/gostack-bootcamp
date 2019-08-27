@@ -20,7 +20,7 @@ export default function DatePicker ({ name, placeholder }) {
       }
     })
     // eslint-disable-next-line
-  }, [ref.current, fieldName]);
+  }, [ref.current, fieldName])
 
   return (
     <>

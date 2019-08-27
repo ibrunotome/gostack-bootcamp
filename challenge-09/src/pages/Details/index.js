@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
+import { Link } from 'react-router-dom'
 import { format, parseISO } from 'date-fns'
 import { pt } from 'date-fns/locale/es'
 import { toast } from 'react-toastify'
@@ -49,10 +50,12 @@ export default function Details ({ history, match }) {
         <Header>
           <h1>{meetup.title || 'Carregando...'}</h1>
           <HeaderButtons>
-            <Button color="#4DBAF9" disabled={meetup.past}>
-              <MdEdit size={20}/>
-              <div>Editar</div>
-            </Button>
+            <Link to={`/edit/${meetup.id}`}>
+              <Button color="#4DBAF9" disabled={meetup.past}>
+                <MdEdit size={20}/>
+                <div>Editar</div>
+              </Button>
+            </Link>
             <Button onClick={() => cancelMeetup()} disabled={meetup.past}>
               <MdDeleteForever size={20}/>
               <div>Apagar</div>

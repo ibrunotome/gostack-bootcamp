@@ -20,7 +20,7 @@ export default function CoverInput () {
     const response = await api.post('files', data)
     const { id, url } = response.data
 
-    document.getElementById('fileId').value = id
+    document.getElementById('file_id').value = id
 
     setFile(id)
     setPreview(url)

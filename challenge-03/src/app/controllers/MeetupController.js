@@ -16,7 +16,7 @@ class MeetupController {
     console.log(req.body)
     const schema = Yup.object().shape({
       title: Yup.string().required(),
-      fileId: Yup.string().required(),
+      file_id: Yup.string().required(),
       description: Yup.string().required(),
       location: Yup.string().required(),
       date: Yup.date().required()
@@ -34,7 +34,7 @@ class MeetupController {
     }
 
     const userId = req.userId
-    const { title, description, location, date, fileId } = req.body
+    const { title, description, location, date, file_id: fileId } = req.body
 
     const alreadyExists = await Meetup.findOne({
       where: {

@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
+import { parseISO } from 'date-fns'
 import { Link } from 'react-router-dom'
 import { Form, Input } from '@rocketseat/unform'
 import { MdList } from 'react-icons/md'
@@ -31,18 +32,20 @@ const schema = Yup.object().shape({
   date: Yup.date().required('A data é obrigatória')
 })
 
-export default function New () {
+export default function Edit ({ match }) {
   const [fileId, setFileId] = useState('')
+  const [meetup, setMeetup] = useState({})
+  const meetupId = match.params.id
 
   async function handleSubmit (data) {
     try {
-      setFileId(data.file_id)
+      setFileId(data.fileId)
 
-      if (window.confirm('Confirma a criação do meetup?')) {
-        const response = await api.post('meetups', data)
+      if (window.confirm('Confirma a atualização do meetup?')) {
+        const response = await api.put(`meetups/${meetupId}`, data)
         const { id } = response.data
 
-        toast.success('Meetup adicionado com sucesso')
+        toast.success('Meetup atualizado com sucesso')
         history.push(`/details/${id}`)
       }
     } catch (error) {
@@ -50,11 +53,27 @@ export default function New () {
     }
   }
 
+  useEffect(() => {
+    async function loadMeetup () {
+      try {
+        const { data } = await api.get(`meetups/${meetupId}`)
+
+        data.date = parseISO(data.date)
+
+        setMeetup(data)
+      } catch (error) {
+        toast.error('Falha ao carregar meetup')
+      }
+    }
+
+    loadMeetup()
+  }, [meetupId])
+
   return (
     <Container>
       <Content>
         <Header>
-          <h1>Novo meetup</h1>
+          <h1>Editar meetup</h1>
           <Link to="/dashboard">
             <Button >
               <MdList size={20}/>
@@ -63,16 +82,20 @@ export default function New () {
           </Link>
         </Header>
 
-        <Form schema={schema} onSubmit={handleSubmit}>
+        <Form
+          schema={schema}
+          initialData={meetup}
+          onSubmit={handleSubmit}
+        >
 
           <Input
             id="fileId"
             type="hidden"
+            value={fileId || meetup.file_id}
             name="file_id"
-            value={fileId}
           />
 
-          <CoverInput />
+          {meetup.cover && <CoverInput />}
 
           <Input
             name="title"
@@ -82,17 +105,18 @@ export default function New () {
           />
 
           <Input
-            multiline
             name="description"
-            autoComplete="off"
             placeholder="Descrição completa"
+            multiline
+            value={meetup.description}
+            onChange={(e) => setMeetup({ ...meetup, description: e.target.value })}
           />
 
-          <DatePicker
+          {meetup.date && <DatePicker
             name="date"
             autoComplete="off"
             placeholder="Data"
-          />
+          />}
 
           <Input
             name="location"
