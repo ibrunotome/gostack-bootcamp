@@ -13,6 +13,7 @@ class MeetupController {
   }
 
   async store (req, res) {
+    console.log(req.body)
     const schema = Yup.object().shape({
       title: Yup.string().required(),
       fileId: Yup.string().required(),
@@ -24,6 +25,7 @@ class MeetupController {
     try {
       await schema.validate(req.body)
     } catch (error) {
+      console.log(error.errors)
       return res.status(422).json({ errors: error.errors })
     }
 

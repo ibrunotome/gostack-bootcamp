@@ -25,6 +25,7 @@
     "polished": "^3.4.1",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
+    "react-datepicker": "^2.8.0",
     "react-dom": "^16.9.0",
     "react-icons": "^3.7.0",
     "react-perfect-scrollbar": "^1.5.3",

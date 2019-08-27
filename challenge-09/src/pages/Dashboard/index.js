@@ -38,10 +38,12 @@ export default function Dashboard () {
 
         <Header>
           <h1>Meus meetups</h1>
-          <Button>
-            <MdAddCircleOutline size={20}/>
-            <div>Novo meetup</div>
-          </Button>
+          <Link to="/new">
+            <Button >
+              <MdAddCircleOutline size={20}/>
+              <div>Novo meetup</div>
+            </Button>
+          </Link>
         </Header>
 
         {meetupsCount > 0 ? (
