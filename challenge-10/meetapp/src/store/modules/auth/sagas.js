@@ -19,11 +19,8 @@ export function * signIn ({ payload }) {
 
     yield put(signInSuccess(token, user))
   } catch (error) {
-    if (error.response.status === 429) {
-      Alert.alert('Muitas requisições!', 'Você realizou muitas tentativas de login em pouco tempo... aguarde um minuto para tentar novamente')
-    } else {
-      Alert.alert('Falha na autenticação', 'Verifique seus dados')
-    }
+    Alert.alert('Falha na autenticação', 'Verifique seus dados')
+
     yield put(signFailure())
   }
 }
