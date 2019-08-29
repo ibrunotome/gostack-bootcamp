@@ -28,29 +28,13 @@ export default function Dashboard ({ navigation }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    async function loadMeetups () {
-      try {
-        const response = await api.get('meetups', {
-          params: { date }
-        })
+    async function initialLoad () {
+      const data = await reloadMeetups()
 
-        const data = response.data.map(meetup => ({
-          ...meetup,
-          date: format(parseISO(meetup.date), "dd 'de' MMMM',' 'às' HH'h'", {
-            locale: pt
-          })
-        }))
-
-        setMeetups(data)
-      } catch (error) {
-        Alert.alert(
-          'Falha ao carregar meetups',
-          error.response.data.error ? error.response.data.error : 'Houve um erro ao carregar meetups'
-        )
-      }
+      setMeetups(data)
     }
 
-    loadMeetups()
+    initialLoad()
     setLoading(false)
   }, [date])
 
@@ -60,12 +44,66 @@ export default function Dashboard ({ navigation }) {
 
       Alert.alert('Sucesso!', 'Inscrição realizada')
 
+      const data = await reloadMeetups()
+
+      setMeetups(data)
+      setLoading(false)
+
       navigation.navigate('Subscriptions')
     } catch (error) {
       Alert.alert(
         'Falha ao inscrever-se',
         error.response.data.error ? error.response.data.error : 'Houve um erro ao inscrever-se no meetup'
       )
+    }
+  }
+
+  async function handleUnsubscribe (id) {
+    try {
+      await api.delete(`/meetups/${id}/unsubscribe`)
+
+      Alert.alert('Sucesso!', 'Sua inscrição foi cancelada')
+
+      const data = await reloadMeetups()
+
+      setMeetups(data)
+      setLoading(false)
+
+      navigation.navigate('Subscriptions')
+    } catch (error) {
+      Alert.alert(
+        'Falha ao cancelar sua inscrição',
+        error.response.data.error
+          ? error.response.data.error
+          : 'Houve um erro ao cancelar sua inscrição no meetup'
+      )
+    }
+  }
+
+  async function reloadMeetups () {
+    setLoading(true)
+
+    try {
+      const response = await api.get('meetups', {
+        params: { date }
+      })
+
+      const mySubscriptions = await api.get('subscriptions')
+
+      return response.data.map(meetup => ({
+        ...meetup,
+        subscribed: mySubscriptions.data.filter(subscription => subscription.meetup_id === meetup.id).length > 0,
+        date: format(parseISO(meetup.date), "dd 'de' MMMM',' 'às' HH'h'", {
+          locale: pt
+        })
+      }))
+    } catch (error) {
+      Alert.alert(
+        'Falha ao carregar meetups',
+        error.response.data.error ? error.response.data.error : 'Houve um erro ao carregar meetups'
+      )
+
+      return meetups
     }
   }
 
@@ -153,8 +191,12 @@ export default function Dashboard ({ navigation }) {
                 >
                   <MeetupCard
                     data={item}
-                    onHandle={() => handleSubscribe(item.id)}
-                    textButton={item.past ? 'O meetup terminou' : 'Realizar inscrição'}
+                    onHandle={() => item.subscribed ? handleUnsubscribe(item.id) : handleSubscribe(item.id)}
+                    textButton={
+                      item.past
+                        ? 'O meetup terminou'
+                        : (item.subscribed ? 'Cancelar inscrição' : 'Realizar inscrição')
+                    }
                   />
 
                 </GestureRecognizer>

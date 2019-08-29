@@ -35,8 +35,6 @@ export default function Dashboard () {
           })
         }))
 
-        console.tron.log(data)
-
         setMeetups(data)
       } catch (error) {
         Alert.alert(

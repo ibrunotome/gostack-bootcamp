@@ -47,7 +47,15 @@ class SubscriptionController {
     let meetup = {}
 
     try {
-      meetup = await Meetup.findByPk(req.params.meetupId)
+      meetup = await Meetup.findByPk(req.params.meetupId, {
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['name', 'email']
+          }
+        ]
+      })
     } catch (error) {
       return res.status(404).json({ error: 'Meetup não encontrado' })
     }
@@ -76,7 +84,7 @@ class SubscriptionController {
     })
 
     if (checkDate) {
-      return res.status(422).json({ error: 'Você já está inscrito em outro meetup no mesmo horá' })
+      return res.status(422).json({ error: 'Você já está inscrito em outro meetup no mesmo horário' })
     }
 
     const subscription = await Subscription.create({
