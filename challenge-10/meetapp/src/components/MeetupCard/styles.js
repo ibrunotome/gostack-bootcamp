@@ -6,6 +6,7 @@ export const Container = styled.View`
   border-radius: 4px;
   margin: 0 15px 15px;
   height: 360px;
+  opacity: ${props => props.past ? 0.3 : 1}
 `
 
 export const Image = styled.Image.attrs({

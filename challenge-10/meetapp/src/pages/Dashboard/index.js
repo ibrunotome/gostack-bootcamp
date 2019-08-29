@@ -24,6 +24,7 @@ import api from '~/services/api'
 export default function Dashboard () {
   const [date, setDate] = useState(new Date())
   const [meetups, setMeetups] = useState([])
+  const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -36,7 +37,6 @@ export default function Dashboard () {
         const data = response.data.map(meetup => ({
           ...meetup,
           past: isBefore(parseISO(meetup.date), new Date()),
-          defaultDate: meetup.date,
           date: format(parseISO(meetup.date), "dd 'de' MMMM',' 'às' HH'h'", {
             locale: pt
           })
@@ -46,7 +46,7 @@ export default function Dashboard () {
       } catch (error) {
         Alert.alert(
           'Falha na busca',
-          'Houve um erro ao realizar a busca dos meetups'
+          'Houve um erro ao listar os meetups'
         )
       }
     }
@@ -55,12 +55,34 @@ export default function Dashboard () {
     setLoading(false)
   }, [date])
 
-  function handlePrevDay () {
+  async function loadMore () {
+    setLoading(true)
+
+    const nextPage = page + 1
+
+    const response = await api.get('meetups', {
+      params: { date, page: nextPage }
+    })
+
+    const data = response.data.map(meetup => ({
+      ...meetup,
+      past: isBefore(parseISO(meetup.date), new Date()),
+      date: format(parseISO(meetup.date), "dd 'de' MMMM',' 'às' HH'h'", {
+        locale: pt
+      })
+    }))
+
+    setMeetups([...meetups, ...data])
+    setPage(nextPage)
+    setLoading(false)
+  }
+
+  async function handlePrevDay () {
     setLoading(true)
     setDate(subDays(date, 1))
   }
 
-  function handleNextDay () {
+  async function handleNextDay () {
     setLoading(true)
     setDate(addDays(date, 1))
   }
@@ -97,6 +119,8 @@ export default function Dashboard () {
           (meetups.length ? (
             <MeetupList
               data={meetups}
+              onEndReachedThreshold={0.2}
+              onEndReached={meetups.length >= 10 ? loadMore : null}
               keyExtractor={item => item.id}
               renderItem={({ item }) => (
                 <GestureRecognizer
@@ -108,7 +132,7 @@ export default function Dashboard () {
                 >
                   <MeetupCard
                     data={item}
-                    textButton="Realizar inscrição"
+                    textButton={item.past ? 'Meetup passado' : 'Realizar inscrição'}
                   />
 
                 </GestureRecognizer>
