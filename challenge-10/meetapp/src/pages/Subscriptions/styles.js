@@ -14,6 +14,7 @@ export const NoMeetups = styled.View`
   color: #fff;
   align-items: center;
   justify-content: center;
+  margin-top: 49px;
 `
 
 export const NoMeetupsText = styled.Text`

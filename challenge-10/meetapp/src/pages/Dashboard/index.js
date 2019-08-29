@@ -154,7 +154,7 @@ export default function Dashboard ({ navigation }) {
                   <MeetupCard
                     data={item}
                     onHandle={() => handleSubscribe(item.id)}
-                    textButton={item.past ? 'Meetup passado' : 'Realizar inscrição'}
+                    textButton={item.past ? 'O meetup terminou' : 'Realizar inscrição'}
                   />
 
                 </GestureRecognizer>
