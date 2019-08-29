@@ -45,8 +45,8 @@ export default function Dashboard () {
         setMeetups(data)
       } catch (error) {
         Alert.alert(
-          'Falha na busca',
-          'Houve um erro ao listar os meetups'
+          'Falha ao carregar meetups',
+          error.response.data.error ? error.response.data.error : 'Houve um erro ao carregar meetups'
         )
       }
     }
@@ -55,25 +55,46 @@ export default function Dashboard () {
     setLoading(false)
   }, [date])
 
+  async function handleSubscribe (id) {
+    try {
+      await api.post(`/meetups/${id}/subscribe`)
+
+      Alert.alert('Sucesso!', 'Inscrição realizada')
+    } catch (error) {
+      Alert.alert(
+        'Falha ao inscrever-se',
+        error.response.data.error ? error.response.data.error : 'Houve um erro ao inscrever-se no meetup'
+      )
+    }
+  }
+
   async function loadMore () {
     setLoading(true)
 
     const nextPage = page + 1
 
-    const response = await api.get('meetups', {
-      params: { date, page: nextPage }
-    })
-
-    const data = response.data.map(meetup => ({
-      ...meetup,
-      past: isBefore(parseISO(meetup.date), new Date()),
-      date: format(parseISO(meetup.date), "dd 'de' MMMM',' 'às' HH'h'", {
-        locale: pt
+    try {
+      const response = await api.get('meetups', {
+        params: { date, page: nextPage }
       })
-    }))
 
-    setMeetups([...meetups, ...data])
-    setPage(nextPage)
+      const data = response.data.map(meetup => ({
+        ...meetup,
+        past: isBefore(parseISO(meetup.date), new Date()),
+        date: format(parseISO(meetup.date), "dd 'de' MMMM',' 'às' HH'h'", {
+          locale: pt
+        })
+      }))
+
+      setMeetups([...meetups, ...data])
+      setPage(nextPage)
+    } catch (error) {
+      Alert.alert(
+        'Falha ao carregar mais meetups',
+        error.response.data.error ? error.response.data.error : 'Houve um erro ao carregar mais meetups'
+      )
+    }
+
     setLoading(false)
   }
 
@@ -132,6 +153,7 @@ export default function Dashboard () {
                 >
                   <MeetupCard
                     data={item}
+                    onHandle={() => handleSubscribe(item.id)}
                     textButton={item.past ? 'Meetup passado' : 'Realizar inscrição'}
                   />
 

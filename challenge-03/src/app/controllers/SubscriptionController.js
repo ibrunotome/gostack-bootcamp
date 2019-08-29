@@ -32,20 +32,18 @@ class SubscriptionController {
     let meetup = {}
 
     try {
-      meetup = await Meetup.findByPk(req.params.meetupId, {
-        include: [User]
-      })
+      meetup = await Meetup.findByPk(req.params.meetupId)
     } catch (error) {
       console.error(error)
-      return res.status(404).json({ error: 'Meetup not found' })
+      return res.status(404).json({ error: 'Meetup não encontrado' })
     }
 
     if (meetup.user_id === req.userId) {
-      return res.status(422).json({ error: 'You cannot subscribe to your own meetups' })
+      return res.status(422).json({ error: 'Você não pode se increver em seu próprio meetup' })
     }
 
     if (meetup.past) {
-      return res.status(422).json({ error: 'You cannot subscribe to past meetups' })
+      return res.status(422).json({ error: 'Você não pode se inscrever em meetups que já terminaram' })
     }
 
     const checkDate = await Subscription.findOne({
@@ -64,7 +62,7 @@ class SubscriptionController {
     })
 
     if (checkDate) {
-      return res.status(422).json({ error: 'You already subscribed to another meetup in the same time' })
+      return res.status(422).json({ error: 'Você já está inscrito em outro meetup no mesmo horário' })
     }
 
     const subscription = await Subscription.create({
