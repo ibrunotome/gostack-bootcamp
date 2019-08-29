@@ -3,6 +3,7 @@ import { Alert } from 'react-native'
 import { format, parseISO, isBefore, subDays, addDays } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import GestureRecognizer from 'react-native-swipe-gestures'
 
 import Background from '~/components/Background'
 import DatePicker from '~/components/DatePicker'
@@ -53,40 +54,52 @@ export default function Dashboard () {
   }
 
   return (
+
     <Background>
       <Header />
-      <Container>
-        <SelectDate>
-          <SelectDateArrow>
-            <Icon
-              onPress={handlePrevDay}
-              name="chevron-left"
-              size={28}
-              color="#fff"
-            />
-          </SelectDateArrow>
-          <DatePicker date={date} onChange={setDate} />
-          <SelectDateArrow>
-            <Icon
-              onPress={handleNextDay}
-              name="chevron-right"
-              size={28}
-              color="#fff"
-            />
-          </SelectDateArrow>
-        </SelectDate>
 
-        <MeetupList
-          data={meetups}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            <MeetupCard
-              data={item}
-              textButton="Realizar inscrição"
-            />
-          )}
-        />
-      </Container>
+      <GestureRecognizer
+        onSwipeLeft={handleNextDay}
+        onSwipeRight={handlePrevDay}
+        style={{
+          flex: 1
+        }}
+      >
+        <Container>
+          <SelectDate>
+            <SelectDateArrow>
+              <Icon
+                onPress={handlePrevDay}
+                name="chevron-left"
+                size={28}
+                color="#fff"
+              />
+            </SelectDateArrow>
+            <DatePicker date={date} onChange={setDate} />
+            <SelectDateArrow>
+              <Icon
+                onPress={handleNextDay}
+                name="chevron-right"
+                size={28}
+                color="#fff"
+              />
+            </SelectDateArrow>
+          </SelectDate>
+
+          <MeetupList
+            data={meetups}
+            keyExtractor={item => item.id}
+            renderItem={({ item }) => (
+              <MeetupCard
+                data={item}
+                textButton="Realizar inscrição"
+              />
+            )}
+          />
+
+        </Container>
+      </GestureRecognizer>
+
     </Background>
   )
 }

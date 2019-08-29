@@ -26,7 +26,7 @@ export default function MeetupCard ({ data, textButton, onHandle }) {
         />
       ) : (
         <Image
-          source={data.cover ? data.cover.url : cover}
+          source={cover}
           resizeMode="cover"
         />
       )}
