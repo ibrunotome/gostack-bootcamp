@@ -9,7 +9,14 @@ import Background from '~/components/Background'
 import DatePicker from '~/components/DatePicker'
 import Header from '~/components/Header'
 import MeetupCard from '~/components/MeetupCard'
-import { Container, SelectDate, SelectDateArrow, MeetupList } from './styles'
+import {
+  Container,
+  SelectDate,
+  SelectDateArrow,
+  MeetupList,
+  NoMeetups,
+  NoMeetupsText
+} from './styles'
 
 import api from '~/services/api'
 
@@ -58,47 +65,70 @@ export default function Dashboard () {
     <Background>
       <Header />
 
-      <GestureRecognizer
-        onSwipeLeft={handleNextDay}
-        onSwipeRight={handlePrevDay}
-        style={{
-          flex: 1
-        }}
-      >
-        <Container>
-          <SelectDate>
-            <SelectDateArrow>
-              <Icon
-                onPress={handlePrevDay}
-                name="chevron-left"
-                size={28}
-                color="#fff"
-              />
-            </SelectDateArrow>
-            <DatePicker date={date} onChange={setDate} />
-            <SelectDateArrow>
-              <Icon
-                onPress={handleNextDay}
-                name="chevron-right"
-                size={28}
-                color="#fff"
-              />
-            </SelectDateArrow>
-          </SelectDate>
+      <Container>
+        <SelectDate>
+          <SelectDateArrow>
+            <Icon
+              onPress={handlePrevDay}
+              name="chevron-left"
+              size={28}
+              color="#fff"
+            />
+          </SelectDateArrow>
+          <DatePicker date={date} onChange={setDate} />
+          <SelectDateArrow>
+            <Icon
+              onPress={handleNextDay}
+              name="chevron-right"
+              size={28}
+              color="#fff"
+            />
+          </SelectDateArrow>
+        </SelectDate>
 
-          <MeetupList
-            data={meetups}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-              <MeetupCard
-                data={item}
-                textButton="Realizar inscrição"
-              />
-            )}
-          />
+        {
+          (meetups.length ? (
+            <MeetupList
+              data={meetups}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => (
+                <GestureRecognizer
+                  onSwipeLeft={handleNextDay}
+                  onSwipeRight={handlePrevDay}
+                  style={{
+                    flex: 1
+                  }}
+                >
+                  <MeetupCard
+                    data={item}
+                    textButton="Realizar inscrição"
+                  />
 
-        </Container>
-      </GestureRecognizer>
+                </GestureRecognizer>
+              )}
+            />
+          ) : (
+            <GestureRecognizer
+              onSwipeLeft={handleNextDay}
+              onSwipeRight={handlePrevDay}
+              style={{
+                flex: 1
+              }}
+            >
+              <NoMeetups>
+                <Icon
+                  name="event-busy"
+                  size={48}
+                  color="#fff"
+                />
+                <NoMeetupsText>Não há meetups</NoMeetupsText>
+
+              </NoMeetups>
+            </GestureRecognizer>
+          ))
+        }
+
+      </Container>
 
     </Background>
   )

@@ -18,3 +18,15 @@ export const MeetupList = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: { padding: 4 }
 })``
+
+export const NoMeetups = styled.View`
+  flex: 1;
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+`
+
+export const NoMeetupsText = styled.Text`
+  color: #fff;
+  font-size: 18;
+`
