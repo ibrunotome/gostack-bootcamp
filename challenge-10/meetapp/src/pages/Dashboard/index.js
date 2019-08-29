@@ -5,19 +5,16 @@ import pt from 'date-fns/locale/pt'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import Background from '~/components/Background'
+import DatePicker from '~/components/DatePicker'
 import Header from '~/components/Header'
 import MeetupCard from '~/components/MeetupCard'
-import { Container, SelectDate, SelectedDate, SelectDateButton, MeetupList } from './styles'
+import { Container, SelectDate, SelectDateArrow, MeetupList } from './styles'
 
 import api from '~/services/api'
 
 export default function Dashboard () {
   const [date, setDate] = useState(new Date())
   const [meetups, setMeetups] = useState([])
-
-  const dateFormatted = format(date, "dd 'de' MMMM", {
-    locale: pt
-  })
 
   useEffect(() => {
     async function loadMeetups () {
@@ -60,23 +57,23 @@ export default function Dashboard () {
       <Header />
       <Container>
         <SelectDate>
-          <SelectDateButton>
+          <SelectDateArrow>
             <Icon
               onPress={handlePrevDay}
               name="chevron-left"
               size={28}
               color="#fff"
             />
-          </SelectDateButton>
-          <SelectedDate>{dateFormatted}</SelectedDate>
-          <SelectDateButton>
+          </SelectDateArrow>
+          <DatePicker date={date} onChange={setDate} />
+          <SelectDateArrow>
             <Icon
               onPress={handleNextDay}
               name="chevron-right"
               size={28}
               color="#fff"
             />
-          </SelectDateButton>
+          </SelectDateArrow>
         </SelectDate>
 
         <MeetupList
