@@ -1,4 +1,5 @@
 import { Op } from 'sequelize'
+import File from '../models/File'
 import User from '../models/User'
 import Meetup from '../models/Meetup'
 import Subscription from '../models/Subscription'
@@ -11,15 +12,29 @@ class SubscriptionController {
       where: {
         user_id: req.userId
       },
+      attributes: ['id', 'user_id', 'meetup_id'],
       include: [
         {
           model: Meetup,
+          attributes: ['id', 'title', 'description', 'location', 'date', 'past'],
           where: {
             date: {
               [Op.gt]: new Date()
             }
           },
-          required: true
+          required: true,
+          include: [
+            {
+              model: User,
+              as: 'user',
+              attributes: ['name', 'email']
+            },
+            {
+              model: File,
+              as: 'cover',
+              attributes: ['name', 'path', 'url']
+            }
+          ]
         }
       ],
       order: [[Meetup, 'date']]
@@ -34,7 +49,6 @@ class SubscriptionController {
     try {
       meetup = await Meetup.findByPk(req.params.meetupId)
     } catch (error) {
-      console.error(error)
       return res.status(404).json({ error: 'Meetup não encontrado' })
     }
 
@@ -62,7 +76,7 @@ class SubscriptionController {
     })
 
     if (checkDate) {
-      return res.status(422).json({ error: 'Você já está inscrito em outro meetup no mesmo horário' })
+      return res.status(422).json({ error: 'Você já está inscrito em outro meetup no mesmo horá' })
     }
 
     const subscription = await Subscription.create({
@@ -78,6 +92,35 @@ class SubscriptionController {
     })
 
     return res.json(subscription)
+  }
+
+  async delete (req, res) {
+    const userId = req.userId
+
+    const meetup = await Meetup.findByPk(req.params.meetupId)
+
+    if (!meetup) {
+      return res.status(404).json({ error: 'Meetup não encontrado' })
+    }
+
+    const subscription = await Subscription.findOne({
+      where: {
+        meetup_id: meetup.id,
+        user_id: userId
+      }
+    })
+
+    if (!subscription) {
+      return res.status(404).json({ error: 'Incrição não encontrada' })
+    }
+
+    if (meetup.past) {
+      return res.status(422).json({ error: 'Você não pode cancelar sua inscrição em meetups que já terminaram' })
+    }
+
+    await subscription.destroy()
+
+    return res.status(204).send()
   }
 }
 

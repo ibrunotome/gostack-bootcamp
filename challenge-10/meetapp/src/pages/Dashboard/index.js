@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Alert } from 'react-native'
-import { format, parseISO, isBefore, subDays, addDays } from 'date-fns'
+import { format, parseISO, subDays, addDays } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import GestureRecognizer from 'react-native-swipe-gestures'
@@ -21,7 +21,7 @@ import {
 
 import api from '~/services/api'
 
-export default function Dashboard () {
+export default function Dashboard ({ navigation }) {
   const [date, setDate] = useState(new Date())
   const [meetups, setMeetups] = useState([])
   const [page, setPage] = useState(1)
@@ -36,7 +36,6 @@ export default function Dashboard () {
 
         const data = response.data.map(meetup => ({
           ...meetup,
-          past: isBefore(parseISO(meetup.date), new Date()),
           date: format(parseISO(meetup.date), "dd 'de' MMMM',' 'às' HH'h'", {
             locale: pt
           })
@@ -60,6 +59,8 @@ export default function Dashboard () {
       await api.post(`/meetups/${id}/subscribe`)
 
       Alert.alert('Sucesso!', 'Inscrição realizada')
+
+      navigation.navigate('Subscriptions')
     } catch (error) {
       Alert.alert(
         'Falha ao inscrever-se',
@@ -80,7 +81,6 @@ export default function Dashboard () {
 
       const data = response.data.map(meetup => ({
         ...meetup,
-        past: isBefore(parseISO(meetup.date), new Date()),
         date: format(parseISO(meetup.date), "dd 'de' MMMM',' 'às' HH'h'", {
           locale: pt
         })
