@@ -22,8 +22,6 @@ export default function DatePicker ({ date, onChange }) {
         <DatePickerIOS
           date={date}
           onDateChange={onChange}
-          minimumDate={new Date()}
-          minuteInterval={60}
           locale="pt"
           mode="date"
         />

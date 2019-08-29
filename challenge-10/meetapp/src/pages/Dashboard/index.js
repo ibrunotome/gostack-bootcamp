@@ -15,7 +15,8 @@ import {
   SelectDateArrow,
   MeetupList,
   NoMeetups,
-  NoMeetupsText
+  NoMeetupsText,
+  Loading
 } from './styles'
 
 import api from '~/services/api'
@@ -23,6 +24,7 @@ import api from '~/services/api'
 export default function Dashboard () {
   const [date, setDate] = useState(new Date())
   const [meetups, setMeetups] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function loadMeetups () {
@@ -50,13 +52,16 @@ export default function Dashboard () {
     }
 
     loadMeetups()
+    setLoading(false)
   }, [date])
 
   function handlePrevDay () {
+    setLoading(true)
     setDate(subDays(date, 1))
   }
 
   function handleNextDay () {
+    setLoading(true)
     setDate(addDays(date, 1))
   }
 
@@ -86,7 +91,9 @@ export default function Dashboard () {
           </SelectDateArrow>
         </SelectDate>
 
-        {
+        {loading && <Loading />}
+
+        {!loading &&
           (meetups.length ? (
             <MeetupList
               data={meetups}

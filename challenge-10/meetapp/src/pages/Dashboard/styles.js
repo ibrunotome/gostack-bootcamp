@@ -30,3 +30,12 @@ export const NoMeetupsText = styled.Text`
   color: #fff;
   font-size: 18;
 `
+
+export const Loading = styled.ActivityIndicator.attrs({
+  color: '#FFF',
+  size: 50
+})`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`
