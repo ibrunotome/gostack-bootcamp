@@ -1,16 +1,9 @@
 import styled from 'styled-components/native'
 import Input from '~/components/Input'
 import Button from '~/components/Button'
-import { darken } from 'polished'
 
 export const Container = styled.SafeAreaView`
   flex: 1;
-`
-
-export const Logo = styled.SafeAreaView`
-  align-items: center;
-  background: ${darken(0.02, '#222029')};
-  height: 100px;
 `
 
 export const Title = styled.Text`

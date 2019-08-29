@@ -169,7 +169,7 @@ async function meetupList (req, res, where) {
       {
         model: File,
         as: 'cover',
-        attributes: ['name', 'path']
+        attributes: ['name', 'path', 'url']
       }
     ],
     limit: 10,
