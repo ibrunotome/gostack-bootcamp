@@ -4,6 +4,8 @@ import Subscription from '../models/Subscription'
 import Queue from '../../lib/Queue'
 import SubscriptionMail from '../jobs/SubscriptionMail'
 
+import Cache from '../../lib/Cache'
+
 class SubscribeService {
   async run ({ userId, meetupId }) {
     let meetup = {}
@@ -60,6 +62,8 @@ class SubscribeService {
       meetup,
       user
     })
+
+    await Cache.invalidatePrefix(`subscriptions:${userId}`)
 
     return subscription
   }

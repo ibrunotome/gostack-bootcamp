@@ -1,5 +1,6 @@
 import { parseISO, isBefore } from 'date-fns'
 import Meetup from '../models/Meetup'
+import Cache from '../../lib/Cache'
 
 class CreateMeetupService {
   async run ({ title, description, location, date, fileId, userId }) {
@@ -17,6 +18,9 @@ class CreateMeetupService {
     if (alreadyExists) {
       throw new Error('Você já possui um meetup agendado para esse horário')
     }
+
+    await Cache.invalidatePrefix('meetups')
+    await Cache.invalidatePrefix(`organizing:${userId}`)
 
     return Meetup.create({
       title,

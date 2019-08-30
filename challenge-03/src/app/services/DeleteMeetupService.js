@@ -1,4 +1,5 @@
 import Meetup from '../models/Meetup'
+import Cache from '../../lib/Cache'
 
 class DeleteMeetupService {
   async run ({ id, userId }) {
@@ -15,6 +16,10 @@ class DeleteMeetupService {
     if (meetup.past) {
       throw new Error('Você não pode apagar meetups que já terminaram')
     }
+
+    await Cache.invalidatePrefix('meetups')
+    await Cache.invalidatePrefix('subscriptions')
+    await Cache.invalidatePrefix(`organizing:${userId}`)
 
     return meetup.destroy()
   }

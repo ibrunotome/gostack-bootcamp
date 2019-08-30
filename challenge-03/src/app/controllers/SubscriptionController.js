@@ -4,11 +4,21 @@ import User from '../models/User'
 import Meetup from '../models/Meetup'
 import Subscription from '../models/Subscription'
 
+import Cache from '../../lib/Cache'
+
 import SubscribeService from '../services/SubscribeService'
 import UnsubscribeService from '../services/UnsubscribeService'
 
 class SubscriptionController {
   async index (req, res) {
+    const page = req.query.page || 1
+    const cacheKey = `subscriptions:${req.userId}:${page}`
+    const cached = await Cache.get(cacheKey)
+
+    if (cached) {
+      return res.json(cached)
+    }
+
     const subscriptions = await Subscription.findAll({
       where: {
         user_id: req.userId
@@ -38,8 +48,12 @@ class SubscriptionController {
           ]
         }
       ],
+      limit: 10,
+      offset: 10 * page - 10,
       order: [[Meetup, 'date']]
     })
+
+    await Cache.set(cacheKey, subscriptions)
 
     return res.json(subscriptions)
   }

@@ -1,4 +1,5 @@
 import Meetup from '../models/Meetup'
+import Cache from '../../lib/Cache'
 
 class UpdateMeetupService {
   async run ({ id, title, description, location, date, fileId, userId }) {
@@ -15,6 +16,10 @@ class UpdateMeetupService {
     if (meetup.past) {
       throw new Error('Você não pode editar meetups que já terminaram')
     }
+
+    await Cache.invalidatePrefix('meetups')
+    await Cache.invalidatePrefix('subscriptions')
+    await Cache.invalidatePrefix(`organizing:${userId}`)
 
     return meetup.update({
       title,

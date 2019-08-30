@@ -4,6 +4,8 @@ import Subscription from '../models/Subscription'
 import Queue from '../../lib/Queue'
 import CancelationMail from '../jobs/CancelationMail'
 
+import Cache from '../../lib/Cache'
+
 class UnsubscribeService {
   async run ({ userId, meetupId }) {
     const meetup = await Meetup.findByPk(meetupId, {
@@ -43,6 +45,8 @@ class UnsubscribeService {
       meetup,
       user
     })
+
+    await Cache.invalidatePrefix(`subscriptions:${userId}`)
 
     return subscription
   }

@@ -4,6 +4,8 @@ import Meetup from '../models/Meetup'
 import File from '../models/File'
 import User from '../models/User'
 
+import Cache from '../../lib/Cache'
+
 import CreateMeetupService from '../services/CreateMeetupService'
 import UpdateMeetupService from '../services/UpdateMeetupService'
 import DeleteMeetupService from '../services/DeleteMeetupService'
@@ -11,8 +13,13 @@ import DeleteMeetupService from '../services/DeleteMeetupService'
 class MeetupController {
   async index (req, res) {
     const where = {}
-
     const page = req.query.page || 1
+    const cacheKey = `meetups:${req.query.date}:${page}`
+    const cached = await Cache.get(cacheKey)
+
+    if (cached) {
+      return res.json(cached)
+    }
 
     if (req.query.date) {
       const searchDate = parseISO(req.query.date)
@@ -40,6 +47,8 @@ class MeetupController {
       offset: 10 * page - 10,
       order: ['date']
     })
+
+    await Cache.set(cacheKey, meetups)
 
     return res.json(meetups)
   }
