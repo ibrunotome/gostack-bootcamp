@@ -5,6 +5,7 @@ import Meetup from '../models/Meetup'
 import Subscription from '../models/Subscription'
 import Queue from '../../lib/Queue'
 import SubscriptionMail from '../jobs/SubscriptionMail'
+import CancelationMail from '../jobs/CancelationMail'
 
 class SubscriptionController {
   async index (req, res) {
@@ -105,7 +106,15 @@ class SubscriptionController {
   async delete (req, res) {
     const userId = req.userId
 
-    const meetup = await Meetup.findByPk(req.params.meetupId)
+    const meetup = await Meetup.findByPk(req.params.meetupId, {
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['name', 'email']
+        }
+      ]
+    })
 
     if (!meetup) {
       return res.status(404).json({ error: 'Meetup não encontrado' })
@@ -127,6 +136,13 @@ class SubscriptionController {
     }
 
     await subscription.destroy()
+
+    const user = await User.findByPk(req.userId)
+
+    await Queue.add(CancelationMail.key, {
+      meetup,
+      user
+    })
 
     return res.status(204).send()
   }
