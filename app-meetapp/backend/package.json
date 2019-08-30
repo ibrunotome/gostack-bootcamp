@@ -1,0 +1,55 @@
+{
+  "name": "challenge-03",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "queue": "nodemon src/queue.js",
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix src"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint:fix"
+    }
+  },
+  "dependencies": {
+    "@sentry/node": "5.5.0",
+    "bcryptjs": "^2.4.3",
+    "bee-queue": "^1.2.2",
+    "cors": "^2.8.5",
+    "date-fns": "^2.0.0-beta.2",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "express-handlebars": "^3.1.0",
+    "express-rate-limit": "^5.0.0",
+    "helmet": "^3.20.1",
+    "ioredis": "^4.14.0",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.1",
+    "nodemailer": "^6.2.1",
+    "nodemailer-express-handlebars": "^3.0.0",
+    "pg": "^7.11.0",
+    "pg-hstore": "^2.3.3",
+    "rate-limit-redis": "^1.6.0",
+    "redis": "^2.8.0",
+    "sequelize": "^5.9.4",
+    "uuid": "^3.3.2",
+    "youch": "^2.0.10",
+    "yup": "^0.27.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.1",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "husky": "^3.0.4",
+    "nodemon": "^1.19.1",
+    "sequelize-cli": "^5.5.0",
+    "sucrase": "^3.10.1"
+  }
+}

@@ -1,9 +1,9 @@
+import { Alert } from 'react-native'
 import { takeLatest, call, put, all } from 'redux-saga/effects'
-import { toast } from 'react-toastify'
-import history from '~/services/history'
 import api from '~/services/api'
 
 import { signInSuccess, signFailure } from './actions'
+import Navigation from '../../../navigation'
 
 export function * signIn ({ payload }) {
   try {
@@ -19,18 +19,10 @@ export function * signIn ({ payload }) {
     api.defaults.headers.Authorization = `Bearer ${token}`
 
     yield put(signInSuccess(token, user))
-
-    history.push('/dashboard')
   } catch (error) {
-    yield put(signFailure())
+    Alert.alert('Falha na autenticação', 'Verifique seus dados')
 
-    if (error.response.status === 401) {
-      toast.error('Falha na autenticação, verifique seus dados')
-    } else if (error.response.status === 429) {
-      toast.error('Você realizou muitas tentativas de login em pouco tempo... aguarde um minuto para tentar novamente')
-    } else {
-      toast.error(error.response.data.messages[0] ? error.response.data.messages[0].message : 'Falha na autenticação, verifique seus dados')
-    }
+    yield put(signFailure())
   }
 }
 
@@ -44,13 +36,13 @@ export function * signUp ({ payload }) {
       password
     })
 
-    toast.success('Conta criada com sucesso. Faça o login para continuar')
+    Navigation.navigate('SignIn')
 
-    history.push('/')
+    Alert.alert('Feito!', 'Conta criada com sucesso. Faça o login para continuar')
   } catch (error) {
-    yield put(signFailure())
+    Alert.alert('Falha no cadastro', error.response.data.messages[0] ? error.response.data.messages[0].message : 'Confira seus dados')
 
-    toast.error(error.response.data.messages[0] ? error.response.data.messages[0].message : 'Falha no cadastro, verifique seus dados')
+    yield put(signFailure())
   }
 }
 
@@ -65,8 +57,7 @@ export function setToken ({ payload }) {
 }
 
 export function signOut () {
-  toast.success('Até mais')
-  history.push('/')
+  Alert.alert('Até mais')
 }
 
 export default all([
