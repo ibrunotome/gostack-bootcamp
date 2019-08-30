@@ -23,7 +23,7 @@ export function * updateProfile ({ payload }) {
 
     history.push('/dashboard')
   } catch (error) {
-    toast.error('Erro ao atualizar perfil, confira seus dados')
+    toast.error(error.response.data.messages[0] ? error.response.data.messages[0].message : 'Erro ao atualizar perfil, confira seus dados')
     yield put(updateProfileFailure())
   }
 }

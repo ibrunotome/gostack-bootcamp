@@ -3,6 +3,7 @@ import { takeLatest, call, put, all } from 'redux-saga/effects'
 import api from '~/services/api'
 
 import { signInSuccess, signFailure } from './actions'
+import Navigation from '../../../navigation'
 
 export function * signIn ({ payload }) {
   try {
@@ -35,9 +36,11 @@ export function * signUp ({ payload }) {
       password
     })
 
+    Navigation.navigate('SignIn')
+
     Alert.alert('Feito!', 'Conta criada com sucesso. Faça o login para continuar')
   } catch (error) {
-    Alert.alert('Falha no cadastro', 'Verifique seus dados')
+    Alert.alert('Falha no cadastro', error.response.data.messages[0] ? error.response.data.messages[0].message : 'Confira seus dados')
 
     yield put(signFailure())
   }

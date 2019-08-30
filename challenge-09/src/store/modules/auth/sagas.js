@@ -25,7 +25,7 @@ export function * signIn ({ payload }) {
     if (error.response.status === 429) {
       toast.error('Você realizou muitas tentativas de login em pouco tempo... aguarde um minuto para tentar novamente')
     } else {
-      toast.error('Falha na autenticação, verifique seus dados')
+      toast.error(error.response.data.messages[0] ? error.response.data.messages[0].message : 'Falha na autenticação, verifique seus dados')
     }
     yield put(signFailure())
   }
@@ -45,7 +45,7 @@ export function * signUp ({ payload }) {
 
     history.push('/')
   } catch (error) {
-    toast.error('Falha no cadastro, verifique seus dados')
+    toast.error(error.response.data.messages[0] ? error.response.data.messages[0].message : 'Falha no cadastro, verifique seus dados')
 
     yield put(signFailure())
   }

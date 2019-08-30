@@ -14,6 +14,13 @@ export const Content = styled.div`
     flex-direction: column;
     margin-top: 30px;
 
+    span {
+      color: #fb6f91;
+      align-self: flex-start;
+      margin: 0 0 10px;
+      font-weight: bold;
+    }
+
     input {
       background: rgba(0, 0, 0, 0.2);
       border: 0;

@@ -1,4 +1,3 @@
-import * as Yup from 'yup'
 import { Op } from 'sequelize'
 import { isBefore, startOfDay, endOfDay, parseISO } from 'date-fns'
 import Meetup from '../models/Meetup'
@@ -13,22 +12,6 @@ class MeetupController {
   }
 
   async store (req, res) {
-    console.log(req.body)
-    const schema = Yup.object().shape({
-      title: Yup.string().required(),
-      file_id: Yup.string().required(),
-      description: Yup.string().required(),
-      location: Yup.string().required(),
-      date: Yup.date().required()
-    })
-
-    try {
-      await schema.validate(req.body)
-    } catch (error) {
-      console.log(error.errors)
-      return res.status(422).json({ errors: error.errors })
-    }
-
     if (isBefore(parseISO(req.body.date), new Date())) {
       return res.status(400).json({ error: 'Você não pode criar um meetup numa data passada' })
     }
@@ -83,20 +66,6 @@ class MeetupController {
   }
 
   async update (req, res) {
-    const schema = Yup.object().shape({
-      title: Yup.string(),
-      file_id: Yup.string(),
-      description: Yup.string(),
-      location: Yup.string(),
-      date: Yup.date()
-    })
-
-    try {
-      await schema.validate(req.body)
-    } catch (error) {
-      return res.status(422).json({ errors: error.errors })
-    }
-
     const userId = req.userId
     const meetup = await Meetup.findByPk(req.params.id)
 

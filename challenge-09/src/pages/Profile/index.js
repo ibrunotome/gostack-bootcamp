@@ -9,6 +9,8 @@ import { Button } from '~/components/Button'
 
 import { updateProfileRequest } from '~/store/modules/user/actions'
 
+import schema from '~/validators/UserUpdate'
+
 export default function Profile () {
   const dispatch = useDispatch()
   const profile = useSelector(state => state.user.profile)
@@ -30,7 +32,11 @@ export default function Profile () {
           </Link>
         </Header>
 
-        <Form initialData={profile} onSubmit={handleSubmit}>
+        <Form
+          schema={schema}
+          initialData={profile}
+          onSubmit={handleSubmit}
+        >
           <Input name="name" placeholder="Nome completo" />
           <Input name="email" type="email" placeholder="Seu endereço de e-mail" />
 

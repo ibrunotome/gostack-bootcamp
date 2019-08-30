@@ -33,6 +33,8 @@ export default function user (state = INITIAL_STATE, action) {
       }
 
       default:
+        draft.loading = false
+        break
     }
   })
 }

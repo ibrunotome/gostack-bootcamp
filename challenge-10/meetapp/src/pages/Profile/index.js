@@ -6,7 +6,14 @@ import Header from '~/components/Header'
 
 import { signOut } from '~/store/modules/auth/actions'
 import { updateProfileRequest } from '~/store/modules/user/actions'
-import { Container, Form, FormInput, SubmitButton, LogoutButton, Separator } from './styles'
+import {
+  Container,
+  Form,
+  FormInput,
+  SubmitButton,
+  LogoutButton,
+  Separator
+} from './styles'
 
 export default function Profile () {
   const dispatch = useDispatch()
