@@ -1,68 +1,67 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Desafio 09. Front-end do Meetapp
 
-## Available Scripts
+Nesse desafio você irá construir o front-end com ReactJS do Meetapp que utilizará a API que você desenvolveu durante os desafios do segundo e terceiro módulo de Node.js.
 
-In the project directory, you can run:
+Crie uma aplicação do zero utilizando create-react-app e configure as ferramentas de padrões de código, Reactotron, Redux e Redux Saga.
 
-### `npm start`
+Essa aplicação será utilizada por organizadores de meetups e não contará com funcionalidades de inscrição.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Essa aplicação faz parte do desafio final do bootcamp utilizado para finalização e certificação.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+O layout do projeto está anexado nesse repositório.
 
-### `npm test`
+## Telas
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Autenticação
 
-### `npm run build`
+O usuário deve poder se autenticar utilizando e-mail e senha.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Cadastro
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+O usuário deve poder se cadastrar com nome, e-mail e senha.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Dashboard
 
-### `npm run eject`
+O usuário deve poder listar os meetups que organiza e clicar para ver detalhes de um meetup.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Nessa tela o usuário pode navegar para a página de criação de meetup.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Detalhes
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+O usuário deve poder visualizar detalhes de um meetup previamente cadastrado.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Nessa tela o usuário pode editar os dados de um meetup ou até cancelar um meetup.
 
-## Learn More
+### Novo/editar
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+O usuário deve poder cadastrar ou editar informações de meetups que organiza.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Exiba a preview de imagem de banner do meetup quando o usuário selecionar uma imagem.
 
-### Code Splitting
+Utilize validação nos campos.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### Perfil
 
-### Analyzing the Bundle Size
+O usuário deve poder editar suas informações de cadastro.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Utilize validação nos campos.
 
-### Making a Progressive Web App
+## Entrega
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+Esse desafio **não precisa ser entregue** e não receberá correção, mas você pode ver o resultado do código do desafio aqui: https://github.com/Rocketseat/bootcamp-gostack-desafio-09
 
-### Advanced Configuration
+Após concluir o desafio, adicionar esse código ao seu Github é uma boa forma de demonstrar seus conhecimentos para oportunidades futuras.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+“Mude você e todo o resto mudará naturalmente”!
 
-### Deployment
+## Meu resultado
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+<img width="1440" alt="Screenshot 2019-08-30 14 32 16" src="https://user-images.githubusercontent.com/4256471/64043163-04c3e700-cb3a-11e9-87e1-fb6cd8176853.png">
 
-### `npm run build` fails to minify
+<img width="1440" alt="Screenshot 2019-08-30 14 32 26" src="https://user-images.githubusercontent.com/4256471/64043162-04c3e700-cb3a-11e9-9a8e-4fad2f012e65.png">
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+<img width="1440" alt="Screenshot 2019-08-30 14 46 00" src="https://user-images.githubusercontent.com/4256471/64043161-042b5080-cb3a-11e9-9f94-51820df69e00.png">
+
+<img width="1440" alt="Screenshot 2019-08-30 14 46 58" src="https://user-images.githubusercontent.com/4256471/64043159-042b5080-cb3a-11e9-9552-95e09a00b0e5.png">
+
+<img width="1440" alt="Screenshot 2019-08-30 14 46 36" src="https://user-images.githubusercontent.com/4256471/64043160-042b5080-cb3a-11e9-8b93-86d9aa52c59a.png">
