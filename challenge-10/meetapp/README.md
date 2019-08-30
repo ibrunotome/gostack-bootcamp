@@ -11,4 +11,4 @@
 
 <img width="33%" alt="Screenshot 2019-08-30 15 02 24" src="https://user-images.githubusercontent.com/4256471/64042278-efe65400-cb37-11e9-8b89-b4c0090c65f1.png"><img width="33%" alt="Screenshot 2019-08-30 15 05 17" src="https://user-images.githubusercontent.com/4256471/64042273-ef4dbd80-cb37-11e9-8d55-fb2d4e3f1b1d.png"><img width="33%" alt="Screenshot 2019-08-30 15 04 38" src="https://user-images.githubusercontent.com/4256471/64042277-efe65400-cb37-11e9-860c-dabca0d731d1.png">
 
-<img width="33%" alt="Screenshot 2019-08-30 15 04 56" src="https://user-images.githubusercontent.com/4256471/64042275-efe65400-cb37-11e9-8c06-17031968022b.png">
+<img width="33%" alt="Screenshot 2019-08-30 15 04 56" src="https://user-images.githubusercontent.com/4256471/64042275-efe65400-cb37-11e9-8c06-17031968022b.png"><img width="33%" alt="Screenshot 2019-08-30 15 26 52" src="https://user-images.githubusercontent.com/4256471/64043373-a21f1b00-cb3a-11e9-9bd3-cc314b84ceab.png">
