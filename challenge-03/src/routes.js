@@ -6,6 +6,7 @@ import UserController from './app/controllers/UserController'
 import AuthController from './app/controllers/AuthController'
 import FileController from './app/controllers/FileController'
 import MeetupController from './app/controllers/MeetupController'
+import OrganizingController from './app/controllers/OrganizingController'
 import SubscriptionController from './app/controllers/SubscriptionController'
 import authMiddleware from './app/middlewares/auth'
 
@@ -26,7 +27,7 @@ routes.use(authMiddleware)
 routes.put('/users', validateUserUpdate, UserController.update)
 routes.post('/files', upload.single('file'), FileController.store)
 
-routes.get('/meetups/organizing', MeetupController.organizingMeetups)
+routes.get('/meetups/organizing', OrganizingController.index)
 routes.get('/meetups', MeetupController.index)
 routes.post('/meetups', validateMeetupStore, MeetupController.store)
 routes.get('/meetups/:id', MeetupController.show)
