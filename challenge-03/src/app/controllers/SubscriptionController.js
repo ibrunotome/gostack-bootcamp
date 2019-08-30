@@ -3,9 +3,9 @@ import File from '../models/File'
 import User from '../models/User'
 import Meetup from '../models/Meetup'
 import Subscription from '../models/Subscription'
-import Queue from '../../lib/Queue'
-import SubscriptionMail from '../jobs/SubscriptionMail'
-import CancelationMail from '../jobs/CancelationMail'
+
+import SubscribeService from '../services/SubscribeService'
+import UnsubscribeService from '../services/UnsubscribeService'
 
 class SubscriptionController {
   async index (req, res) {
@@ -45,106 +45,47 @@ class SubscriptionController {
   }
 
   async store (req, res) {
-    let meetup = {}
+    const userId = req.userId
+    const meetupId = req.params.meetupId
 
     try {
-      meetup = await Meetup.findByPk(req.params.meetupId, {
-        include: [
-          {
-            model: User,
-            as: 'user',
-            attributes: ['name', 'email']
-          }
-        ]
-      })
+      const subscription = await SubscribeService.run({ userId, meetupId })
+
+      return res.json(subscription)
     } catch (error) {
-      return res.status(404).json({ error: 'Meetup não encontrado' })
+      return res
+        .status(400)
+        .json({
+          error: error.message,
+          messages: [
+            {
+              message: error.message
+            }
+          ]
+        })
     }
-
-    if (meetup.user_id === req.userId) {
-      return res.status(422).json({ error: 'Você não pode se increver em seu próprio meetup' })
-    }
-
-    if (meetup.past) {
-      return res.status(422).json({ error: 'Você não pode se inscrever em meetups que já terminaram' })
-    }
-
-    const checkDate = await Subscription.findOne({
-      where: {
-        user_id: req.userId
-      },
-      include: [
-        {
-          model: Meetup,
-          required: true,
-          where: {
-            date: meetup.date
-          }
-        }
-      ]
-    })
-
-    if (checkDate) {
-      return res.status(422).json({ error: 'Você já está inscrito em outro meetup no mesmo horário' })
-    }
-
-    const subscription = await Subscription.create({
-      user_id: req.userId,
-      meetup_id: meetup.id
-    })
-
-    const user = await User.findByPk(req.userId)
-
-    await Queue.add(SubscriptionMail.key, {
-      meetup,
-      user
-    })
-
-    return res.json(subscription)
   }
 
   async delete (req, res) {
     const userId = req.userId
+    const meetupId = req.params.meetupId
 
-    const meetup = await Meetup.findByPk(req.params.meetupId, {
-      include: [
-        {
-          model: User,
-          as: 'user',
-          attributes: ['name', 'email']
-        }
-      ]
-    })
+    try {
+      await UnsubscribeService.run({ userId, meetupId })
 
-    if (!meetup) {
-      return res.status(404).json({ error: 'Meetup não encontrado' })
+      return res.status(204).send()
+    } catch (error) {
+      return res
+        .status(400)
+        .json({
+          error: error.message,
+          messages: [
+            {
+              message: error.message
+            }
+          ]
+        })
     }
-
-    const subscription = await Subscription.findOne({
-      where: {
-        meetup_id: meetup.id,
-        user_id: userId
-      }
-    })
-
-    if (!subscription) {
-      return res.status(404).json({ error: 'Incrição não encontrada' })
-    }
-
-    if (meetup.past) {
-      return res.status(422).json({ error: 'Você não pode cancelar sua inscrição em meetups que já terminaram' })
-    }
-
-    await subscription.destroy()
-
-    const user = await User.findByPk(req.userId)
-
-    await Queue.add(CancelationMail.key, {
-      meetup,
-      user
-    })
-
-    return res.status(204).send()
   }
 }
 

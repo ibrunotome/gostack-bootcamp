@@ -2,8 +2,6 @@ import React from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import PropTypes from 'prop-types'
 
-import cover from '~/assets/cover.png'
-
 import {
   Container,
   Image,
@@ -17,19 +15,12 @@ import {
 export default function MeetupCard ({ data, textButton, onHandle }) {
   return (
     <Container past={data.past}>
-      {data.cover.url ? (
-        <Image
-          source={{
-            uri: data.cover.url
-          }}
-          resizeMode="cover"
-        />
-      ) : (
-        <Image
-          source={cover}
-          resizeMode="cover"
-        />
-      )}
+      <Image
+        source={{
+          uri: data.cover ? data.cover.url : 'https://coverpixs.com/images/items/itm_2013-01-27_11-43-42_2.jpg'
+        }}
+        resizeMode="cover"
+      />
 
       <Content>
         <Info>
