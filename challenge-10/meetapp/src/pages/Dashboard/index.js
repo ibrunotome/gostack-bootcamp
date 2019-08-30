@@ -77,6 +77,11 @@ export default function Dashboard ({ navigation }) {
           ? error.response.data.error
           : 'Houve um erro ao cancelar sua inscrição no meetup'
       )
+
+      const data = await reloadMeetups()
+
+      setMeetups(data)
+      setLoading(false)
     }
   }
 
