@@ -3,6 +3,7 @@ import { factory } from 'factory-girl'
 import User from '../src/app/models/User'
 import File from '../src/app/models/File'
 import Meetup from '../src/app/models/Meetup'
+import Subscription from '../src/app/models/Subscription'
 
 factory.define('User', User, {
   name: faker.name.findName(),
@@ -22,5 +23,7 @@ factory.define('File', File, {
   name: faker.lorem.word(),
   path: faker.lorem.word()
 })
+
+factory.define('Subscription', Subscription, {})
 
 export default factory

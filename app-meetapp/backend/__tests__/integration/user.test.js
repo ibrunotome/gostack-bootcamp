@@ -15,6 +15,52 @@ describe('User', () => {
     expect(response.body).toHaveProperty('id')
   })
 
+  it('should fail when register because already registered', async () => {
+    const response = await request(app)
+      .post('/users')
+      .send({
+        name: 'Bruno Tomé',
+        email: 'alreadyregistered@gmail.com',
+        password: 'secretxxx'
+      })
+
+    expect(response.body).toHaveProperty('id')
+
+    await request(app)
+      .post('/users')
+      .send({
+        name: 'Bruno Tomé',
+        email: 'alreadyregistered@gmail.com',
+        password: 'secretxxx'
+      })
+
+    expect.stringContaining('Usuário já existe')
+  })
+
+  it('should be able to update profile', async () => {
+    const user = await factory.create('User', {
+      email: 'willupdateuser@gmail.com',
+      password: 'secretxxx'
+    })
+
+    const login = await request(app)
+      .post('/login')
+      .send({
+        email: user.email,
+        password: 'secretxxx'
+      })
+
+    await request(app)
+      .put('/users')
+      .send({
+        name: 'Tomés',
+        email: user.email
+      })
+      .set('Authorization', `Bearer ${login.body.token}`)
+
+    expect.stringContaining('Tomés')
+  })
+
   it('should fail when register because invalid input', async () => {
     await request(app)
       .post('/users')
@@ -47,6 +93,7 @@ describe('User', () => {
 
   it('should be able to login successfully', async () => {
     const user = await factory.create('User', {
+      email: 'validuser@gmail.com',
       password: 'secretxxx'
     })
 
@@ -76,8 +123,16 @@ describe('Meetup', () => {
       user_id: user.id
     })
 
+    const login = await request(app)
+      .post('/login')
+      .send({
+        email: user.email,
+        password: 'secretxxx'
+      })
+
     await request(app)
       .get('/meetups')
+      .set('Authorization', `Bearer ${login.body.token}`)
 
     expect.stringContaining(meetup.title)
   })
@@ -96,8 +151,16 @@ describe('Meetup', () => {
       user_id: user.id
     })
 
+    const login = await request(app)
+      .post('/login')
+      .send({
+        email: user.email,
+        password: 'secretxxx'
+      })
+
     await request(app)
       .get('/meetups?page=2')
+      .set('Authorization', `Bearer ${login.body.token}`)
 
     expect.not.stringContaining(meetup.title)
   })
@@ -290,5 +353,107 @@ describe('Meetup', () => {
       .set('Authorization', `Bearer ${login.body.token}`)
 
     expect.not.stringContaining(meetup.title)
+  })
+})
+
+describe('Subscription', () => {
+  it('should be able to subscribe', async () => {
+    const user = await factory.create('User', {
+      name: 'Test user',
+      email: 'test10@test.com',
+      password: 'secretxxx'
+    })
+
+    const file = await factory.create('File')
+
+    const meetup = await factory.create('Meetup', {
+      file_id: file.id,
+      user_id: user.id
+    })
+
+    const fakeUser = await factory.create('User', {
+      name: 'Test user',
+      email: 'fakeuser@test.com',
+      password: 'secretxxx'
+    })
+
+    const login = await request(app)
+      .post('/login')
+      .send({
+        email: fakeUser.email,
+        password: 'secretxxx'
+      })
+
+    await request(app)
+      .post(`/meetups/${meetup.id}/subscribe`)
+      .set('Authorization', `Bearer ${login.body.token}`)
+
+    expect.stringContaining(meetup.title)
+  })
+
+  it('should be able to unsubscribe', async () => {
+    const user = await factory.create('User', {
+      name: 'Test user',
+      email: 'test11@test.com',
+      password: 'secretxxx'
+    })
+
+    const file = await factory.create('File')
+
+    const meetup = await factory.create('Meetup', {
+      file_id: file.id,
+      user_id: user.id
+    })
+
+    await factory.create('Subscription', {
+      user_id: user.id,
+      meetup_id: meetup.id
+    })
+
+    const login = await request(app)
+      .post('/login')
+      .send({
+        email: user.email,
+        password: 'secretxxx'
+      })
+
+    await request(app)
+      .delete(`/meetups/${meetup.id}/unsubscribe`)
+      .set('Authorization', `Bearer ${login.body.token}`)
+
+    expect(204)
+  })
+
+  it('should be able to list subscribed meetups', async () => {
+    const user = await factory.create('User', {
+      name: 'Test user',
+      email: 'test12@test.com',
+      password: 'secretxxx'
+    })
+
+    const file = await factory.create('File')
+
+    const meetup = await factory.create('Meetup', {
+      file_id: file.id,
+      user_id: user.id
+    })
+
+    await factory.create('Subscription', {
+      user_id: user.id,
+      meetup_id: meetup.id
+    })
+
+    const login = await request(app)
+      .post('/login')
+      .send({
+        email: user.email,
+        password: 'secretxxx'
+      })
+
+    await request(app)
+      .get(`/subscriptions`)
+      .set('Authorization', `Bearer ${login.body.token}`)
+
+    expect.stringContaining(meetup.title)
   })
 })
