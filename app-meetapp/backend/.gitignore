@@ -2,3 +2,5 @@ node_modules
 yarn-error.log
 .env
 tmp/
+__tests__/coverage
+__tests__/database.sqlite

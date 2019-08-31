@@ -7,7 +7,10 @@
     "dev": "nodemon src/server.js",
     "queue": "nodemon src/queue.js",
     "lint": "eslint src",
-    "lint:fix": "eslint --fix src"
+    "lint:fix": "eslint --fix src",
+    "pretest": "NODE_ENV=test sequelize db:migrate",
+    "test": "NODE_ENV=test jest",
+    "posttest": "NODE_ENV=test sequelize db:migrate:undo:all"
   },
   "husky": {
     "hooks": {
@@ -41,6 +44,8 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
+    "@sucrase/jest-plugin": "^2.0.0",
+    "@types/jest": "^24.0.18",
     "eslint": "^6.0.1",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.18.0",
@@ -48,8 +53,10 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "husky": "^3.0.4",
+    "jest": "^24.9.0",
     "nodemon": "^1.19.1",
     "sequelize-cli": "^5.5.0",
+    "sqlite3": "^4.1.0",
     "sucrase": "^3.10.1"
   }
 }
