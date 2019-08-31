@@ -1,6 +1,7 @@
 import faker from 'faker'
 import { factory } from 'factory-girl'
 import User from '../src/app/models/User'
+import File from '../src/app/models/File'
 import Meetup from '../src/app/models/Meetup'
 
 factory.define('User', User, {
@@ -15,6 +16,11 @@ factory.define('Meetup', Meetup, {
   password: faker.internet.password(),
   location: faker.random.locale(),
   date: faker.date.future()
+})
+
+factory.define('File', File, {
+  name: faker.lorem.word(),
+  path: faker.lorem.word()
 })
 
 export default factory

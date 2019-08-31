@@ -28,9 +28,6 @@ class Cache {
 
     const keysWithoutPrefix = keys.map(key => key.replace('cache:', ''))
 
-    console.log(prefix)
-    console.log(keysWithoutPrefix)
-
     if (keysWithoutPrefix.length > 0) {
       return this.redis.del(keysWithoutPrefix)
     }
