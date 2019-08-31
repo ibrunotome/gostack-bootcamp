@@ -9,7 +9,9 @@ docker run --name postgres -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
 docker run --name redis -p 6379:6379 -d -t redis:alpine
 ```
 
-`cp .env.example .env` and set the correct variables
+Create the database if not created yet
+
+`cp .env.example .env` and set the correct variables, including the APP_URL if you don't wanna use http://localhost:3333
 
 Install the dependencies and run the database migrations
 
@@ -22,9 +24,12 @@ Then run the server and queue
 
 ### Frontend
 
+- Set the api url in `src/services/api.js` if you don't wanna use http://localhost:3333
 - `yarn start`
 
 ### Mobile
+
+- Set the api url in `src/services/api.js` if you don't wanna use http://localhost:3333
 
 - iOS: `react-native run-ios`
 - Android: `react-native run-android`

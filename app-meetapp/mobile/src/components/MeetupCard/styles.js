@@ -6,7 +6,7 @@ export const Container = styled.View`
   border-radius: 4px;
   margin: 0 15px 15px;
   height: 360px;
-  opacity: ${props => props.past ? 0.3 : 1}
+  opacity: ${props => props.past ? 0.7 : 1}
 `
 
 export const Image = styled.Image.attrs({
@@ -43,7 +43,7 @@ export const Description = styled.Text.attrs({
   numberOfLines: 1
 })`
   font-size: 14px;
-  color: #999;
+  color: #333;
   margin-left: 2px;
 `
 

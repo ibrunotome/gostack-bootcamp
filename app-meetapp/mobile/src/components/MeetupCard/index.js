@@ -27,15 +27,15 @@ export default function MeetupCard ({ data, textButton, onHandle }) {
           <Title>{data.title}</Title>
         </Info>
         <Info>
-          <Icon name="event" size={14} color="#999" />
+          <Icon name="event" size={14} color="#333" />
           <Description>{data.date}</Description>
         </Info>
         <Info>
-          <Icon name="place" size={14} color="#999" />
+          <Icon name="place" size={14} color="#333" />
           <Description>{data.location}</Description>
         </Info>
         <Info>
-          <Icon name="person" size={14} color="#999" />
+          <Icon name="person" size={14} color="#333" />
           <Description>Organizador: {data.user.name}</Description>
         </Info>
 
