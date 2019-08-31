@@ -8,8 +8,8 @@
     "queue": "nodemon src/queue.js",
     "lint": "eslint src",
     "lint:fix": "eslint --fix src",
-    "pretest": "NODE_ENV=test sequelize db:migrate",
-    "test": "NODE_ENV=test jest",
+    "pretest": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate",
+    "test": "NODE_ENV=test jest --forceExit",
     "posttest": "NODE_ENV=test sequelize db:migrate:undo:all"
   },
   "husky": {
@@ -52,11 +52,14 @@
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
+    "factory-girl": "^5.0.4",
+    "faker": "^4.1.0",
     "husky": "^3.0.4",
     "jest": "^24.9.0",
     "nodemon": "^1.19.1",
     "sequelize-cli": "^5.5.0",
     "sqlite3": "^4.1.0",
-    "sucrase": "^3.10.1"
+    "sucrase": "^3.10.1",
+    "supertest": "^4.0.2"
   }
 }
