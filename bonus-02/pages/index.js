@@ -1,6 +1,8 @@
-import React from "react";
-import Link from "next/link";
-import Head from "next/Head";
+import React from 'react'
+import Link from 'next/link'
+import Head from 'next/Head'
+
+import withAnalytics from '../src/hocs/withAnalytics'
 
 const Home = () => (
   <div>
@@ -11,6 +13,6 @@ const Home = () => (
       <a>Usuários</a>
     </Link>
   </div>
-);
+)
 
-export default Home;
+export default withAnalytics()(Home);
