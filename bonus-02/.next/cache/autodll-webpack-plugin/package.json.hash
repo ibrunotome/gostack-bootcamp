@@ -1,1 +1,0 @@
-{"name":"bonus-02","version":"1.0.0","main":"index.js","license":"MIT","dependencies":{"next":"^9.0.5","react":"^16.9.0","react-dom":"^16.9.0"},"scripts":{"dev":"next","start":"next start","build":"next build"},"readme":"ERROR: No README data found!","_id":"bonus-02@1.0.0"}
